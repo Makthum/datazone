@@ -11,7 +11,6 @@ import javax.persistence.Table;
 public class DimScrap {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
 

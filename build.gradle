@@ -189,6 +189,7 @@ dependencies {
     compile "io.springfox:springfox-bean-validators"
     compile "mysql:mysql-connector-java"
     compile "org.mapstruct:mapstruct-jdk8:${mapstruct_version}"
+    compile group: 'com.opencsv', name: 'opencsv', version: '4.1'
     testCompile "com.jayway.jsonpath:json-path"
     testCompile ("org.springframework.boot:spring-boot-starter-test") {
         exclude group: 'com.vaadin.external.google', module: 'android-json'
