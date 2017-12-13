@@ -1,0 +1,60 @@
+<div class="row">
+    <hr>
+    <span class="text-center"><h3>Issue Report </h3></span>
+    <br>
+    <div class="col-md-3 col-md-offset-2">
+        <p class="input-group">
+            <span class="input-group-addon">From Date</span>
+            <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.fromDate" is-open="vm.opened1" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                    ng-click="vm.open1()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+        </p>
+    </div>
+    <div class="col-md-3">
+        <p class="input-group">
+            <span class="input-group-addon">To Date</span>
+            <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.toDate" is-open="vm.opened2" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                    ng-click="vm.open2()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+        </p>
+    </div>
+    <div class="col-md-1">
+        <button type="button" class="btn btn-success" ng-click="vm.load()"> Load
+        </button>
+    </div>
+    <div class="col-md-1">
+        <button type="button" class="btn btn-success" ng-click="vm.download()"> download
+        </button>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped">
+        <tr ng-repeat="item in $data">
+            <td data-title="'Id'" header-class="'bg-primary'" sortable="'id'">
+                {{item.id}}</td>
+            <td data-title="'date'" header-class="'bg-primary'" sortable="'dimDate.date'">
+                {{item.dimDate.date}}</td>
+            <td data-title="'Department'" header-class="'bg-primary'" sortable="'component.department'">
+                {{item.component.department}}</td>
+            <td data-title="'Component'" header-class="'bg-primary'" sortable="'component.component'">
+                {{item.component.component}}</td>
+            <td data-title="'subComponent'" header-class="'bg-primary'" sortable="'component.subComponent'">
+                {{item.component.subComponent}}</td>
+            <td data-title="'Description'" header-class="'bg-primary'" sortable="'issueDescription'">
+                {{item.issueDescription}}</td>
+            <td data-title="'Worked By'" header-class="'bg-primary'" sortable="'workedBy'">
+                {{item.workedBy}}</td>
+            <td data-title="'Solution'" header-class="'bg-primary'" sortable="'issueResolution'">
+                {{item.issueResolution}}</td>
+            <td data-title="'Time Taken'" header-class="'bg-primary'" sortable="'timeTaken'">
+                {{item.timeTaken}}</td>
+        </tr>
+    </table>
+</div>

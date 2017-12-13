@@ -1,41 +1,42 @@
 <div class="row">
+    <hr>
+    <span class="text-center"><h3>Scrap Received Logs </h3></span><br>
     <div class="col-md-offset-2 col-md-3">
         <p class="input-group">
             <span class="input-group-addon">From Date</span>
             <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.fromDate" is-open="vm.opened1" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
-								<button type="button" class="btn btn-default"
-									ng-click="vm.open1()">
-									<i class="glyphicon glyphicon-calendar"></i>
-								</button>
-							</span>
+                                <button type="button" class="btn btn-default"
+                                    ng-click="vm.open1()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
         </p>
     </div>
     <div class="col-md-3">
         <p class="input-group">
             <span class="input-group-addon">From Date</span>
             <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.toDate" is-open="vm.opened2" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
-								<button type="button" class="btn btn-default"
-									ng-click="vm.open2()">
-									<i class="glyphicon glyphicon-calendar"></i>
-								</button>
-							</span>
+                                <button type="button" class="btn btn-default"
+                                    ng-click="vm.open2()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
         </p>
     </div>
     <div class="col-md-3">
-        <button type="button" class="btn btn-primary" ng-click="vm.load()"> Load
+        <button type="button" class="btn btn-success" ng-click="vm.load()"> Load
         </button>
     </div>
 </div>
-<br>
-<br>
+<hr>
 <div class="row">
-    <table ng-table="vm.tableParams" class="table">
+    <table ng-table="vm.tableParams" class="table table-responsive table-bordered table-striped">
         <tr ng-repeat="item in $data">
-            <td title="'Date'" sortable="'dimDate.date'">
+            <td data-title="'Date'" header-class="'bg-primary'" sortable="'dimDate.date'">
                 {{item.dimDate.date}}</td>
-            <td title="'Scrap Type'" sortable="'dimScrap.name'">
+            <td data-title="'Scrap Type'" header-class="'bg-primary'" sortable="'dimScrap.name'">
                 {{item.dimScrap.name}}</td>
-            <td title="'Quantity'" sortable="'quantity'">
+            <td data-title="'Quantity'" header-class="'bg-primary'" sortable="'quantity'">
                 {{item.quantity}}</td>
         </tr>
     </table>

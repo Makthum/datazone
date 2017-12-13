@@ -1,0 +1,149 @@
+<div class="row">
+    <div class="col-md-8">
+        <span class="text-center"><h3>New Issue</h3></span>
+        <form ng-submit="vm.save()">
+            <table class="table table-condensed table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="bg-primary">Component</th>
+                        <th class="bg-primary">Date</th>
+                        <th class="bg-primary">Issue Description</th>
+                        <th class="bg-primary">Worked By</th>
+                        <th class="bg-primary">Solution</th>
+                        <th class="bg-primary">Time Taken in Minutes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="btn-group" uib-dropdown keyboard-nav>
+                                <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>
+                                    {{vm.componentName}} <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                                    <li ng-repeat="choice in vm.components">
+                                        <a href ng-click="vm.selectItem(choice)">{{choice.department}} - {{choice.component}} - {{choice.subComponent}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <p class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.issue.date" is-open="vm.dateOpened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                    ng-click="vm.open1()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                            </p>
+                        </td>
+                        <td>
+                            <input type="text" ng-model="vm.issue.description" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="text" ng-model="vm.issue.workedBy" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="text" ng-model="vm.issue.solution" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="text" ng-model="vm.issue.timeTaken" class="form-control" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success addnew " value="Save" />
+            </div>
+        </form>
+        <hr />
+    </div>
+    <div class="col-md-8 ">
+        <span class="text-center"><h3>Update Issue</h3></span>
+        <form ng-submit="vm.update()">
+            <table class="table table-condensed table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="bg-primary">Component</th>
+                        <th class="bg-primary">Date</th>
+                        <th class="bg-primary">Issue Description</th>
+                        <th class="bg-primary">Worked By</th>
+                        <th class="bg-primary">Solution</th>
+                        <th class="bg-primary">Time Taken in Minutes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="btn-group" uib-dropdown keyboard-nav>
+                                <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>
+                                    {{vm.issueUpdate.componentId}} <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                                    <li ng-repeat="choice in vm.components">
+                                        <a href ng-click="vm.selectItem(choice)">{{choice.department}} - {{choice.component}} - {{choice.subcomponent}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <p class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.issueUpdate.date" is-open="vm.date.opened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                    ng-click="vm.open1()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                            </p>
+                        </td>
+                        <td>
+                            <input type="text" ng-model="vm.issueUpdate.description" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="text" ng-model="vm.issueUpdate.workedBy" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="text" ng-model="vm.issueUpdate.solution" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="text" ng-model="vm.issueUpdate.timeTaken" class="form-control" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            {{vm.updateResult}}
+            <div class="form-group">
+                <input type="submit" class="btn btn-success addnew " value="Update" />
+            </div>
+        </form>
+    </div>
+</div>
+<br>
+<br>
+<div class="row">
+    <span class="text-center"><h3>Issue List</h3></span>
+    <div class="col-md-12">
+        <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped" >
+            <tr ng-repeat="item in $data">
+                <td data-title="'Id'"  header-class="'bg-primary'"  sortable="'id'">
+                    {{item.id}}</td>
+                <td data-title="'date'" header-class="'bg-primary'"  sortable="'dimDate.date'">
+                    {{item.dimDate.date}}</td>
+                <td data-title="'Department'" header-class="'bg-primary'"  sortable="'component.department'">
+                    {{item.component.department}}</td>
+                <td data-title="'Component'"  header-class="'bg-primary'" sortable="'component.component'">
+                    {{item.component.component}}</td>
+                <td data-title="'subComponent'"  header-class="'bg-primary'" sortable="'component.subComponent'">
+                    {{item.component.subComponent}}</td>
+                <td data-title="'Description'" header-class="'bg-primary'"  sortable="'issueDescription'">
+                    {{item.issueDescription}}</td>
+                <td data-title="'Worked By'"  header-class="'bg-primary'" sortable="'workedBy'">
+                    {{item.workedBy}}</td>
+                <td data-title="'Solution'" header-class="'bg-primary'"  sortable="'issueResolution'">
+                    {{item.issueResolution}}</td>
+                <td data-title="'Time Taken'" header-class="'bg-primary'"  sortable="'timeTaken'">
+                    {{item.timeTaken}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

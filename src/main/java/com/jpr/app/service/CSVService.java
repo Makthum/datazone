@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.opencsv.CSVWriter;
-import com.opencsv.bean.HeaderColumnNameMappingStrategy;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvException;
@@ -21,18 +20,12 @@ public class CSVService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CSVService.class);
 
-	public void writeCities(PrintWriter writer, List<?> pojos, Class type, String[] columns) {
+	public void writeAll(PrintWriter writer, List<?> pojos, Class type) {
 
 		try {
 
-			@SuppressWarnings("rawtypes")
-			HeaderColumnNameMappingStrategy mapStrategy = new HeaderColumnNameMappingStrategy();
-
-			mapStrategy.setType(type.getClass());
-			mapStrategy.generateHeader();
-
 			StatefulBeanToCsv btcsv = new StatefulBeanToCsvBuilder(writer).withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
-					.withMappingStrategy(mapStrategy).withSeparator(',').build();
+					.withSeparator(',').build();
 
 			btcsv.write(pojos);
 

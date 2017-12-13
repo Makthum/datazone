@@ -3,6 +3,7 @@ package com.jpr.app.service;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,7 @@ import com.jpr.app.repository.DimDateRepository;
 import com.jpr.app.repository.DimScrapRepository;
 import com.jpr.app.repository.FactScrapIssuedRepository;
 import com.jpr.app.repository.FactScrapRecvRepository;
+import com.jpr.app.service.dto.MonthlyOCBalanceDTO;
 import com.jpr.app.service.dto.ScrapReceivedDTO;
 
 @Service
@@ -170,6 +172,75 @@ public class ScrapService {
 			return (List<Map<String, Object>>) entry.getValue();
 		}
 		return null;
+
+	}
+
+	public List<MonthlyOCBalanceDTO> getMonthlyBalance(Date fromDate, Date toDate) {
+		List<FactScrapRecv> scrapReceived = factScrapRecvRepo.findByDimDateDateBetween(fromDate, toDate);
+		List<FactScrapIssued> scrapIssued = factScrapIssuedRepo.findByDimDateDateBetween(fromDate, toDate);
+		List<DimDate> dates = dimDateRepo.findByDateBetween(fromDate, toDate);
+		Integer totalRecv = (Integer) factScrapRecvRepo.findScrapReceived(fromDate).toBigInteger().intValue();
+		Integer totalIssued = (Integer) factScrapIssuedRepo.findScrapIssued(fromDate).toBigInteger().intValue();
+		int opBal = totalRecv - totalIssued;
+		int clBal = 0;
+		List<MonthlyOCBalanceDTO> result = new ArrayList<>();
+		for (DimDate d : dates) {
+			MonthlyOCBalanceDTO dto = new MonthlyOCBalanceDTO();
+			dto.setDate(d.getDate());
+			dto.setOpBalance(opBal);
+			dto.setScrapReceived(getEntry(scrapReceived, d));
+			dto.setScrapIssued(getObject(scrapIssued, d));
+			dto.setClBalance(dto.getOpBalance() + dto.getScrapReceived() - dto.getScrapIssued());
+			opBal = dto.getOpBalance() + dto.getScrapReceived() - dto.getScrapIssued();
+			result.add(dto);
+		}
+		return result;
+	}
+
+	private int getEntry(List<FactScrapRecv> details, DimDate date) {
+		int result = 0;
+		for (FactScrapRecv entry : details) {
+			if (entry.getDimDate().getDate().compareTo(date.getDate()) == 0) {
+				result = result + entry.getQuantity();
+			}
+		}
+		return result;
+	}
+
+	private int getObject(List<FactScrapIssued> details, DimDate date) {
+		int result = 0;
+		for (FactScrapIssued entry : details) {
+			if (entry.getDimDate().getDate().compareTo(date.getDate()) == 0) {
+				result = result + entry.getQuantity();
+			}
+		}
+		return result;
+	}
+
+	public Map<String, Double> getComposition(Date date) {
+		List<FactScrapIssued> issued = factScrapIssuedRepo.findByDimDateDate(date);
+		HashMap<String, Double> result = new HashMap<>();
+		int total = 0;
+		for (FactScrapIssued scrap : issued) {
+			total += scrap.getQuantity();
+			result.put(scrap.getDimScrap().getName(), new Double(scrap.getQuantity()));
+		}
+
+		for (Map.Entry<String, Double> entry : result.entrySet()) {
+			entry.setValue(entry.getValue() / total);
+		}
+
+		return result;
+
+	}
+
+	public Map<DimScrap, Double> getCompositionByScrap(Date date) {
+		List<FactScrapIssued> issued = factScrapIssuedRepo.findByDimDateDate(date);
+		HashMap<DimScrap, Double> result = new HashMap<>();
+		for (FactScrapIssued scrap : issued) {
+			result.put(scrap.getDimScrap(), new Double(scrap.getQuantity()));
+		}
+		return result;
 
 	}
 

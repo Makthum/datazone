@@ -34,6 +34,7 @@ import com.jpr.app.domain.User;
 import com.jpr.app.security.AuthoritiesConstants;
 import com.jpr.app.service.CSVService;
 import com.jpr.app.service.ScrapService;
+import com.jpr.app.service.dto.MonthlyOCBalanceDTO;
 import com.jpr.app.service.dto.RcLogDTO;
 import com.jpr.app.service.dto.ScrapReceivedDTO;
 import com.jpr.app.service.dto.UserDTO;
@@ -154,6 +155,24 @@ public class ScrapResource {
 		List<Map<String, Object>> result = scrapService.getScrapIssuedReport(detail.getFromDate(), detail.getToDate(),
 				detail.getPage(), detail.getSize());
 		csvService.writeAll(result, response.getWriter());
+	}
+
+	@RequestMapping(value = "/scrap/monthlybalance", method = RequestMethod.POST)
+	@Timed
+	@Secured(AuthoritiesConstants.USER)
+	public ResponseEntity<List<MonthlyOCBalanceDTO>> getMonthlyBalance(@RequestBody RcLogDTO detail,
+			HttpServletResponse response) throws IOException {
+		List<MonthlyOCBalanceDTO> result = scrapService.getMonthlyBalance(detail.getFromDate(), detail.getToDate());
+		return new ResponseEntity<List<MonthlyOCBalanceDTO>>(result, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/scrap/monthlybalancedownload", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@Timed
+	@Secured(AuthoritiesConstants.USER)
+	public void downloadSMonthlyBalance(@RequestBody RcLogDTO detail, HttpServletResponse response)
+			throws IOException {
+		List<MonthlyOCBalanceDTO> result = scrapService.getMonthlyBalance(detail.getFromDate(), detail.getToDate());
+		csvService.writeAll(response.getWriter(),result, MonthlyOCBalanceDTO.class);
 	}
 
 }

@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-md-4 col-md-offset-2">
+        <p class="input-group">
+            <span class="input-group-addon">From Date</span>
+            <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.fromDate" is-open="vm.opened1" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                    ng-click="vm.open1()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+        </p>
+    </div>
+    <div class="col-md-3">
+        <p class="input-group">
+            <span class="input-group-addon">To Date</span>
+            <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.toDate" is-open="vm.opened2" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                    ng-click="vm.open2()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+        </p>
+    </div>
+    <div class="col-md-1">
+        <button type="button" class="btn btn-success" ng-click="vm.load()"> Load
+        </button>
+    </div>
+    <div class="col-md-1">
+        <button type="button" class="btn btn-success" ng-click="vm.download()"> download
+        </button>
+    </div>
+</div>
+<div class="row">
+    <table ng-table="vm.tableParams" class="table table-responsive">
+        <tr ng-repeat="item in $data">
+            <td data-title="'Heat Id'" header-class="'bg-primary'" sortable="'DimHeat.heatId'">
+                {{item.dimHeat.heatId}}</td>
+            <td data-title="'Date'" header-class="'bg-primary'" sortable="'dimHeat.dimDate.date'">
+                {{item.dimHeat.dimDate.date }}</td>
+            <td data-title="'furnace On'" header-class="'bg-primary'" sortable="'furnaceOn'">
+                {{item.furnaceOn | date : 'HH:mm:ss': '+0530'}}</td>
+            <td data-title="'Furnace off'" header-class="'bg-primary'" sortable="'furnaceOff'">
+                {{item.furnaceOff | date : 'HH:mm:ss': '+0530'}}</td>
+            <td data-title="'Time Taken'" header-class="'bg-primary'" sortable="'timeTaken'">
+                {{item.timeTaken}}</td>
+            <td data-title="'delay'" header-class="'bg-primary'" sortable="'delay'">
+                {{item.delay}}</td>
+            <td data-title="'Slag'" header-class="'bg-primary'" sortable="'slag'">
+                {{item.slag | number : 2}}</td>
+            <td data-title="'Production'" header-class="'bg-primary'" sortable="'production'">
+                {{item.production | number : 2}}</td>
+            <td data-title="'HeatType'" header-class="'bg-primary'" sortable="'heatType'">
+                {{item.heatType}}</td>
+            <td data-title="'Maximum Demand'" header-class="'bg-primary'" sortable="'maximumOperatingPower'">
+                {{item.maximumOperatingPower}}</td>
+            <td data-title="'Power Factor'" header-class="'bg-primary'" sortable="'powerFactor'">
+                {{item.powerFactor | number : 3}}</td>
+            <td data-title="'Unit Consumed'" header-class="'bg-primary'" sortable="'unitConsumed'">
+                {{item.unitConsumed}}</td>
+            <td data-title="'Unit Per Ton'" header-class="'bg-primary'" sortable="'unitPerTon'">
+                {{item.unitPerTon}}</td>
+            <td data-title="'Tapping Time'" header-class="'bg-primary'" sortable="'tappingTime'">
+                {{item.tappingTime}}</td>
+            <td data-title="'Tapping Temperature'" header-class="'bg-primary'" sortable="'tappingTemp'">
+                {{item.tappingTemp}}</td>
+            <td data-title="'issueId'" header-class="'bg-primary'" sortable="'issue.id'">
+                {{item.issue.id}}</td>
+        </tr>
+    </table>
+</div>

@@ -1,5 +1,7 @@
 <div class="row">
-    <div class="col-md-4">
+    <hr>
+    <span class="text-center"><h3>Scrap Received Report </h3></span><br>
+    <div class="col-md-3 col-md-offset-2">
         <p class="input-group">
             <span class="input-group-addon">From Date</span>
             <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.fromDate" is-open="vm.opened1" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
@@ -22,20 +24,20 @@
         </p>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btn btn-primary" ng-click="vm.load()"> Load
+        <button type="button" class="btn btn-success" ng-click="vm.load()"> Load
         </button>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btn btn-primary" ng-click="vm.download()"> download
+        <button type="button" class="btn btn-success" ng-click="vm.download()"> download
         </button>
     </div>
 </div>
+<hr>
 <div class="row">
-    <table ng-table="vm.tableParams" class="table" show-filter="true">
-        <tr ng-if="$index < 1" ng-repeat="item in $data" ng-init=outerIndex=$index>
-            <th ng-repeat="(key,value) in item">{{key}}</th>
+    <table ng-table="vm.tableParams" class="table table-responsive table-bordered table-striped" show-filter="true">
+        <tr ng-if="$index < 1" ng-repeat="item in $data" ng-init="outerIndex=$index">
+            <th class="bg-primary" ng-repeat="(key,value) in item">{{key}}</th>
         </tr>
-        </th>
         <tr ng-repeat="item in $data">
             <td ng-repeat="(key,value) in item">{{value}}</td>
         </tr>

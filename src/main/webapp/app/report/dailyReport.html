@@ -1,0 +1,171 @@
+<div class="row">
+    <div class="col-md-5">
+        <p class="input-group">
+            <span class="input-group-addon">From Date</span>
+            <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.date" is-open="vm.dateOpened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" />
+            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                    ng-click="vm.open1()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+        </p>
+    </div>
+    <div class="col-md-1">
+        <button type="button" class="btn btn-success" ng-click="vm.load()"> Load
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <table class="table table-responsive table-bordered table-striped ">
+            <tbody>
+                <tr>
+                    <th>
+                        Production
+                    </th>
+                    <td ng-class="{ 'bg-success' :vm.details.production > 250  ,'bg-danger' : vm.details.production < 250}">
+                        <a ui-sref="heatReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"> <span >{{vm.details.production | number :2}}</span>                    </a>
+                    </td>
+                    <td>
+                        Target
+                    </td>
+                    <td>
+                        250
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Total Breakdown
+                    </th>
+                    <td ng-class="{ 'bg bg-success' :vm.details.totalBreakdown < 0  ,'bg bg-danger' : vm.details.totalBreakdown > 0}">
+                        <a ui-sref="issueReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.totalBreakdown}}</span></a>
+                    </td>
+                    <td>
+                        Target
+                    </td>
+                    <td>
+                        0
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Total Running Time
+                    </th>
+                    <td ng-class="{ 'bg bg-success' :vm.details.totalRunningTime/60 > 23  ,'bg bg-danger' : vm.details.totalBreakdown/60 < 22}">
+                        <a ui-sref="heatReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.totalRunningTime/60 | number :2}}</span> </a>
+                    </td>
+                    <td>
+                        Target
+                    </td>
+                    <td>
+                        23
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Average UPT
+                    </th>
+                    <td ng-class="{ 'bg bg-success' :vm.details.averageUpt < 650  ,'bg bg-danger' : vm.details.averageUpt > 650}">
+                        <a ui-sref="heatReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.averageUpt }}</span> </a>
+                    </td>
+                    <td>
+                        Target
+                    </td>
+                    <td>
+                        650
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Power Factor
+                    </th>
+                    <td ng-class="{ 'bg bg-success' :vm.details.powerFactor >= .93  ,'bg bg-danger' : vm.details.powerFactor < .93}">
+                        <a ui-sref="heatReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.powerFactor | number :2}}</span> </a>
+                    </td>
+                    <td>
+                        Target
+                    </td>
+                    <td>
+                        .93
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Slag
+                    </th>
+                    <td ng-class="{ 'bg bg-success' :vm.details.slag < vm.details.production * .09  ,'bg bg-danger' : vm.details.slag > vm.details.production * .09}">
+                        <a ui-sref="heatReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"><span>{{vm.details.slag | number :2}}</span> </a>
+                    </td>
+                    <td>
+                        Target
+                    </td>
+                    <td>
+                        {{vm.details.production * .09 | number :2}} (9%)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Energy
+                    </th>
+                    <td ng-class="{ 'bg bg-success' :vm.details.totalUnits < vm.details.production * 650  ,'bg bg-danger' : vm.details.totalUnits > vm.details.production * 650}">
+                        <a ui-sref="heatReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.totalUnits | number :2}}</span> </a>
+                    </td>
+                    <td>
+                        Target
+                    </td>
+                    <td>
+                        {{vm.details.production * 650 | number :2}}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Average Running Time
+                    </th>
+                    <td ng-class="{ 'bg bg-success' :vm.details.averageRunningTime <= 150  ,'bg bg-danger' : vm.details.averageRunningTime > 150}">
+                        <a ui-sref="heatReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.averageRunningTime | number :2}}</span> </a>
+                    </td>
+                    <td>
+                        Target
+                    </td>
+                    <td>
+                        150
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Average Tapping Time
+                    </th>
+                    <td ng-class="{ 'bg bg-success' :vm.details.averageTappingTime <= 10  ,'bg bg-danger' : vm.details.averageTappingTime > 10}">
+                        <a ui-sref="heatReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.averageTappingTime | number :2}}</span> </a>
+                    </td>
+                    <td>
+                        Target
+                    </td>
+                    <td>
+                        10
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-5">
+        <table class="table table-responsive table-bordered table-striped">
+            <tr ng-repeat="(key, value) in vm.composition">
+                <th>{{key}}</th>
+                <td>
+                    <a ui-sref="ScrapIssuedReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"> {{value * 100}} % </a>
+                </td>
+            </tr>
+        </table>
+        <table class="table table-responsive table-bordered table-striped">
+            <tr ng-repeat="(key, value) in vm.costComposition">
+                <th>{{key}}</th>
+                <td>
+                    {{value}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+{{vm.error}}

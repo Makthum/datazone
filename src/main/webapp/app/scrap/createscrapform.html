@@ -1,77 +1,121 @@
-
-
 <div class="row">
-<div class="col-md-6">
-<h1>Create Scrap Type</h1>
-    <form ng-submit="vm.save()">
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>ScrapName</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in vm.items">
-                <td><input type="text" ng-model="item.id"
-                        class="form-control" disabled/></td>
-                    <td><input type="text" ng-model="item.name"
-                        class="form-control" /></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="form-group">
-            <input type="submit" class="btn btn-primary addnew "
-                value="Save"/>
-                <input type="button" ng-click="vm.addNew()" class="btn btn-primary"
-                value="addNew"/>
-        </div>
-    </form>
-
-
-    <hr />
+    <div class="col-md-6">
+        <span class="text-center"><h3>New Scrap </h3></span>
+        <form ng-submit="vm.save()">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th class="btn-warning">Date</th>
+                        <th class="btn-warning">ScrapName</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in vm.items">
+                        <td>
+                            <input type="text" ng-model="item.id" class="form-control" disabled/>
+                        </td>
+                        <td>
+                            <input type="text" ng-model="item.name" class="form-control" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success addnew " value="Save" />
+                <input type="button" ng-click="vm.addNew()" class="btn btn-success" value="addNew" />
+            </div>
+        </form>
+        <hr />
+    </div>
+    <div class="col-md-6">
+        <span class="text-center"><h3>Scrap Cost</h3></span>
+        <form ng-submit="vm.saveCost()">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th class="btn-warning">Date</th>
+                        <th class="btn-warning">ScrapName</th>
+                        <th class="btn-warning">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div>
+                                <p class="input-group">
+                                    <span class="input-group-addon"> Date</span>
+                                    <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.cost.date" is-open="vm.opened1" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                    ng-click="vm.open1()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                                </p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btn-group" uib-dropdown keyboard-nav>
+                                <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>
+                                    {{vm.cost.scrapName}} <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                                    <li ng-repeat="choice in vm.cost.scraps">
+                                        <a href ng-click="vm.selectCostScrap(choice)">{{choice.name}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" ng-model="vm.cost.price" class="form-control" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success addnew " value="Save" />
+            </div>
+        </form>
+        <hr />
+    </div>
+    <div class="col-md-6 ">
+        <span class="text-center"><h3>Update Scrap</h3></span>
+        <form ng-submit="vm.update()">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th class="btn-warning">Date</th>
+                        <th class="btn-warning">ScrapName</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <td>
+                        <input type="text" ng-model="vm.updateId" class="form-control" />
+                    </td>
+                    <td>
+                        <input type="text" ng-model="vm.updateName" class="form-control" />
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+            {{vm.updateResult}}
+            <div class="form-group">
+                <input type="submit" class="btn btn-success addnew " value="Update" />
+            </div>
+        </form>
+    </div>
 </div>
-<div class="col-md-6 ">
-<h1>Update Scrap Type</h1>
- <form ng-submit="vm.update()">
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>ScrapName</th>
-                </tr>
-            </thead>
-            <tbody>
-                <td><input type="text" ng-model="vm.updateId"
-                        class="form-control"/></td>
-                    <td><input type="text" ng-model="vm.updateName"
-                        class="form-control" /></td>
-                </tr>
-            </tbody>
-        </table>
-        {{vm.updateResult}}
-        <div class="form-group">
-            <input type="submit" class="btn btn-primary addnew "
-                value="Update"/>
-
-        </div>
-    </form>
-</div>
-
-</div>
-
 <br>
 <br>
-<div class ="row">
-<h1> Scrap List </h1>
-<div class="col-md-8 col-md-offset-2">
-<table ng-table="vm.tableParams" class="table" show-filter="true">
-    <tr ng-repeat="item in $data">
-        <td title="'Scrap Id'" filter="{ id: 'text'}" sortable="'id'">
-            {{item.id}}</td>
-        <td title="'Scrap Type'" filter="{ name: 'text'}" sortable="'name'">
-            {{item.name}}</td>
-    </tr>
-</table>
-</div>
+<div class="row">
+    <span class="text-center"><h3>Scrap List</h3></span>
+    <div class="col-md-8">
+        <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped">
+            <tr ng-repeat="item in $data">
+                <td data-title="'Scrap Id'" header-class="'bg-primary'" sortable="'id'">
+                    {{item.id}}</td>
+                <td data-title="'Scrap Type'" header-class="'bg-primary'" sortable="'name'">
+                    {{item.name}}</td>
+            </tr>
+        </table>
+    </div>
 </div>

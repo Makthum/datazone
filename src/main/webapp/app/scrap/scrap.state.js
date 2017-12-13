@@ -68,6 +68,10 @@
             data: {
                 authorities: []
             },
+            params : {
+                fromDate: null,
+                toDate: null
+            },
             views: {
                 'content@': {
                     templateUrl: 'app/scrap/ScrapIssuedReport.html',
@@ -85,6 +89,19 @@
                 'content@': {
                     templateUrl: 'app/scrap/ScrapIssuedForm.html',
                     controller: 'ScrapIssuedController',
+                    controllerAs: 'vm'
+            }
+            }
+        }).state('ScrapMonthlyBalance', {
+            parent: 'app',
+            url:'/ScrapMonthlyBalance',
+            data: {
+                authorities: []
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/scrap/ScrapMonthlyBalanceReport.html',
+                    controller: 'ScrapMonthlyBalanceController',
                     controllerAs: 'vm'
             }
             }
