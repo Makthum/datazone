@@ -4,10 +4,16 @@ import java.util.Date;
 
 public class ScrapReceivedDTO {
 	
+	public Double getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(Double quantity) {
+		this.quantity = quantity;
+	}
 	private Date date;
 	private int scrapType;
 	private String scrapTypeName;
-	private int quantity;
+	private Double quantity;
 	public Date getDate() {
 		return date;
 	}
@@ -26,12 +32,7 @@ public class ScrapReceivedDTO {
 	public void setScrapTypeName(String scrapTypeName) {
 		this.scrapTypeName = scrapTypeName;
 	}
-	public int getQuantity() {
-		return quantity;
-	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
+	
 	
 
 }

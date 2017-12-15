@@ -181,8 +181,7 @@ public class ScrapService {
 		List<DimDate> dates = dimDateRepo.findByDateBetween(fromDate, toDate);
 		Integer totalRecv = (Integer) factScrapRecvRepo.findScrapReceived(fromDate).toBigInteger().intValue();
 		Integer totalIssued = (Integer) factScrapIssuedRepo.findScrapIssued(fromDate).toBigInteger().intValue();
-		int opBal = totalRecv - totalIssued;
-		int clBal = 0;
+		double opBal = totalRecv - totalIssued;
 		List<MonthlyOCBalanceDTO> result = new ArrayList<>();
 		for (DimDate d : dates) {
 			MonthlyOCBalanceDTO dto = new MonthlyOCBalanceDTO();
@@ -197,8 +196,8 @@ public class ScrapService {
 		return result;
 	}
 
-	private int getEntry(List<FactScrapRecv> details, DimDate date) {
-		int result = 0;
+	private double getEntry(List<FactScrapRecv> details, DimDate date) {
+		double result = 0;
 		for (FactScrapRecv entry : details) {
 			if (entry.getDimDate().getDate().compareTo(date.getDate()) == 0) {
 				result = result + entry.getQuantity();
@@ -207,8 +206,8 @@ public class ScrapService {
 		return result;
 	}
 
-	private int getObject(List<FactScrapIssued> details, DimDate date) {
-		int result = 0;
+	private double getObject(List<FactScrapIssued> details, DimDate date) {
+		double result = 0;
 		for (FactScrapIssued entry : details) {
 			if (entry.getDimDate().getDate().compareTo(date.getDate()) == 0) {
 				result = result + entry.getQuantity();

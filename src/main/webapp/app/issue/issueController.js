@@ -91,9 +91,11 @@
                         vm.tabledata = params.filter() ? $filter('filter')(vm.tabledata, params.filter()) : vm.tabledata;
                         vm.tabledata = vm.tabledata.slice((params.page() - 1) * params.count(), params.page() * params.count());
                         params.total(response.data.length);
+                        vm.status = response.statusText;
                         return vm.tabledata;
                     }, function myError(response) {
-                        vm.error = response.statusText;
+                        vm.error = response.data.detail;
+                        vm.status = response.statusText;
                     });
                 }
             });
@@ -114,6 +116,8 @@
         };
 
         vm.save = function() {
+            vm.error = "";
+            vm.status= "";
             $http({
                 method: 'POST',
                 url: '/api/issues',
@@ -122,10 +126,12 @@
                     'Content-Type': 'application/json'
                 }
             }).then(function mySuccess(response) {
-                vm.status = response.data;
+                vm.error = response.data.detail;
+                vm.status = response.statusText;
                 reload();
             }, function myError(response) {
-                vm.status = response.data;
+                vm.error = response.data.detail;
+                vm.status = response.statusText;
                 reload();
             });
 
@@ -137,14 +143,16 @@
         }
 
         function reload() {
+            vm.error = "";
+            vm.status= "";
             vm.tableParams.reload();
         }
 
         function getScrapTypes() {
             return $http({
-                    method: 'GET',
-                    url: '/api/issues',
-                });
+                method: 'GET',
+                url: '/api/issues',
+            });
         };
 
         function getComponents() {
@@ -154,8 +162,10 @@
                 })
                 .then(function mySuccess(response) {
                     vm.components = response.data;
+                    vm.status = response.statusText;
                 }, function myError(response) {
-                    vm.error = response.statusText;
+                    vm.error = response.data.detail;
+                    vm.status = response.statusText;
                 });
         };
     }

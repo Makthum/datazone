@@ -96,16 +96,44 @@ public class HeatService {
 	public List<DimHeat> getHeats() {
 		return dimHeatRepo.findAll();
 	}
-	
+
 	public List<DimHeat> getRecentHeats() {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DATE, -3);
 		Date date = cal.getTime();
-		return dimHeatRepo.findByDimDateDateAfter(date);
+		return dimHeatRepo.findByDimDateOnDateAfter(date);
 	}
 
 	public List<FactHeatDetails> getHeatDetails(Date fromDate, Date toDate, int page, int size) {
-		return factHeatDetailsRepo.findByDimHeatDimDateDateBetween(fromDate, toDate, new PageRequest(page, size));
+		return factHeatDetailsRepo.findByDimHeatDimDateOnDateBetween(fromDate, toDate, new PageRequest(page, size));
+	}
+
+	public HeatDetailsDTO getHeatDetails(Integer id) {
+		FactHeatDetails temp = factHeatDetailsRepo.findOne(id);
+		if (temp == null)
+			return null;
+		HeatDetailsDTO result = new HeatDetailsDTO();
+		result.setDelay(temp.getDelay());
+		result.setFurnaceOff(temp.getFurnaceOff());
+		result.setFurnaceOn(temp.getFurnaceOn());
+		result.setHeatId(temp.getDimHeat().getId());
+		result.setHeatType(temp.getHeatType());
+		if (temp.getIssue() != null)
+			result.setIssueId(temp.getIssue().getId());
+		result.setMaximumOperatingPower(result.getMaximumOperatingPower());
+		result.setPowerFactor(temp.getPowerFactor());
+		result.setProduction(temp.getProduction());
+		result.setSlag(temp.getSlag());
+		result.setTappingTemp(temp.getTappingTemp());
+		result.setTappingTime(temp.getTappingTime());
+		result.setTimeTaken(temp.getTimeTaken());
+		result.setUnitConsumed(temp.getUnitConsumed());
+		result.setUnitPerTon(temp.getUnitPerTon());
+		return result;
+	}
+
+	public FactHeatMixture getHeatMix(Integer id) {
+		return heatMixtureRepo.findOne(id);
 	}
 
 	public FactHeatMixture createHeatMixture(FactHeatMixture entity) {

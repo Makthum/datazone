@@ -54,6 +54,8 @@
 
 
         vm.save = function() {
+            vm.error = "";
+            vm.status= "";
             $http({
                 method: 'POST',
                 url: '/api/components',
@@ -69,7 +71,8 @@
         };
 
         vm.update = function() {
-
+            vm.error = "";
+            vm.status= "";
             var putdata = {
                 "id": vm.updateId,
                 "name": vm.updateName
@@ -83,9 +86,11 @@
                 }
             }).then(function mySuccess(response) {
                 vm.updateResult = response.data;
+                vm.status = response.statusText;
                 reload();
             }, function myError(response) {
-                vm.updateResult = response.data;
+                vm.error = response.data.detail;
+                vm.status = response.statusText;
                 reload();
             });
         };

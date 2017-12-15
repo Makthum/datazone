@@ -69,10 +69,12 @@
                         vm.tabledata = params.sorting() ? $filter('orderBy')(vm.tabledata, params.orderBy()) : vm.tabledata;
                         vm.tabledata = params.filter() ? $filter('filter')(vm.tabledata, params.filter()) : vm.tabledata;
                         vm.tabledata = vm.tabledata.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                        vm.status = response.statusText;
                         params.total(response.data.length);
                         return vm.tabledata;
                     }, function myError(response) {
-                        vm.error = response.statusText;
+                        vm.error = response.data.detail;
+                        vm.status = response.statusText;
                     });
                 }
             });
@@ -108,6 +110,8 @@
 
 
         function getScraplogs(page, count) {
+            vm.error = "";
+            vm.status= "";
             var dataset = {
                 'fromDate': vm.fromDate,
                 'toDate': vm.toDate,
@@ -122,11 +126,15 @@
         };
 
         vm.load = function() {
+            vm.error = "";
+            vm.status= "";
             vm.disableLoad = false;
             vm.tableParams.reload();
         }
 
         vm.download = function() {
+            vm.error = "";
+            vm.status= "";
             var dataset = {
                 'fromDate': vm.fromDate,
                 'toDate': vm.toDate,
@@ -150,7 +158,8 @@
 
                 },
                 function myError(response) {
-                    vm.error = response.statusText;
+                    vm.error = response.data.detail;
+                    vm.status = response.statusText;
                 });
         }
     }

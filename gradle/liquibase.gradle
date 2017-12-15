@@ -5,7 +5,7 @@ configurations {
 }
 
 dependencies {
-    liquibase "org.liquibase.ext:liquibase-hibernate5"
+    liquibase "org.liquibase.ext:liquibase-hibernate5:3.6"
 }
 
 if (OperatingSystem.current().isWindows()) {
@@ -44,8 +44,8 @@ def liquibaseCommand(command) {
 
         args "--changeLogFile=src/main/resources/config/liquibase/changelog/" + buildTimestamp() +"_changelog.xml"
         args "--referenceUrl=hibernate:spring:com.jpr.app.domain?dialect=org.hibernate.dialect.MySQL5InnoDBDialect&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy"
-        args "--username=root"
-        args "--password="
+        args "--username=jpradmin"
+        args "--password=admin"
         args "--url=jdbc:mysql://localhost:3306/jpr"
         args "--driver=com.mysql.jdbc.Driver"
         args command

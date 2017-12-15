@@ -31,19 +31,22 @@
         vm.items = {};
         vm.updateitems = {}
         vm.rawmix = [{
-            'heatId' : 99,
-            'scrapName' : "SilicoManganese",
-            "quantity" : 0
-        },{
-            'heatId' : 100,
-            'scrapName' : "FerroManganese",
-            "quantity" : 0
+            'heatId': 99,
+            'scrapName': "SilicoManganese",
+            "quantity": 0
+        }, {
+            'heatId': 100,
+            'scrapName': "FerroManganese",
+            "quantity": 0
         }]
 
         vm.inlineOptions = {
             minDate: new Date(),
             showWeeks: true
         };
+
+        vm.heat = {}
+        vm.heatmix = {}
 
         vm.dateOptions = {
             formatYear: 'yy',
@@ -80,7 +83,7 @@
             opened: false
         };
 
-
+        vm.heat = {};
 
         vm.tableParams = new NgTableParams({
                 page: 1,
@@ -98,6 +101,7 @@
                         params.total(response.data.length);
                         return vm.tabledata;
                     }, function myError(response) {
+                        vm.status = response.statusText;
                         vm.error = response.statusText;
                     });
                 }
@@ -107,6 +111,7 @@
 
         vm.save = function() {
             vm.error = "";
+            vm.status = "";
             $http({
                 method: 'POST',
                 url: '/api/heatdetails',
@@ -116,8 +121,10 @@
                 }
             }).then(function mySuccess(response) {
                 vm.status = response.status;
+                vm.status = response.statusText;
             }, function myError(response) {
                 vm.error = response.data.detail;
+                vm.status = response.statusText;
             });
 
             $http({
@@ -129,8 +136,10 @@
                 }
             }).then(function mySuccess(response) {
                 vm.status = response.status;
+                vm.status = response.statusText;
             }, function myError(response) {
                 vm.error = response.data.detail;
+                vm.status = response.statusText;
             });
         };
 
@@ -149,20 +158,16 @@
                 }
             }).then(function mySuccess(response) {
                 vm.updateResult = response.data;
+                vm.status = response.statusText;
                 reload();
             }, function myError(response) {
                 vm.updateResult = response.data;
+                vm.error = response.data.detail;
+                vm.status = response.statusText;
                 reload();
             });
         };
 
-
-        vm.heat = {
-            'furnaceOff': new Date(),
-            'furnaceOn': new Date()
-        }
-
-        vm.heatmix = {};
 
         function getScrapTypes() {
             return $http({
@@ -188,6 +193,8 @@
         vm.ismeridian = true;
 
         function getHeats() {
+            vm.error = "";
+            vm.status = "";
             $http({
                 method: 'GET',
                 url: '/api/heats/recent',
@@ -196,12 +203,16 @@
                 }
             }).then(function mySuccess(response) {
                 vm.heats = response.data;
+                vm.status = response.statusText;
             }, function myError(response) {
-                vm.status = response.error;
+                vm.error = response.data.detail;
+                vm.status = response.statusText;
             });
         };
 
         function getIssues() {
+            vm.error = "";
+            vm.status = "";
             $http({
                 method: 'GET',
                 url: '/api/issues',
@@ -210,16 +221,18 @@
                 }
             }).then(function mySuccess(response) {
                 vm.issues = response.data;
+                vm.status = response.statusText;
             }, function myError(response) {
-                vm.status = response.error;
+                vm.error = response.data.detail;
+                vm.status = response.statusText;
             });
         };
 
 
         vm.selectHeat = function(item) {
-            vm.heat.heatId = parseInt(item.id);
-            vm.heatmix.dimHeatId = parseInt(item.id);
-            vm.heatName = item.heatId + "-" + item.sinteringHeatId;
+            loadHeatDetails(item);
+
+
         };
 
         vm.selectHeatType = function(item) {
@@ -231,12 +244,16 @@
             vm.issueName = item.dimDate.date + ' - ' + item.issueDescription;
         };
 
-        vm.furnaceOnchanged = function() {
-            vm.heat.furnaceOn = vm.furnaceOn;
+        vm.furnaceOnChanged = function() {
+            vm.heat.furnaceOn.setMinutes(vm.furnaceOn.getMinutes());
+            vm.heat.furnaceOn.setHours(vm.furnaceOn.getHours());
+            vm.heat.furnaceOn.setSeconds(vm.furnaceOn.getSeconds());
         };
 
-        vm.furnaceOffchanged = function() {
-            vm.heat.furnaceOff = vm.furnaceOff;
+        vm.furnaceOffChanged = function() {
+            vm.heat.furnaceOff.setMinutes(vm.furnaceOff.getMinutes());
+            vm.heat.furnaceOff.setHours(vm.furnaceOff.getHours());
+            vm.heat.furnaceOff.setSeconds(vm.furnaceOff.getSeconds());
         };
 
 
@@ -248,6 +265,62 @@
                 'scrapId': ''
             })
         }
+
+        function loadHeatDetails(item) {
+            $http({
+                method: 'GET',
+                url: '/api/heatdetails',
+                params: { id: parseInt(item.id) }
+            }).then(function mySuccess(response) {
+                    if (response.data) {
+                        vm.heat = response.data;
+                        vm.heat.furnaceOn = new Date(vm.heat.furnaceOn);
+                        vm.heat.furnaceOff = new Date(vm.heat.furnaceOff);
+                        vm.furnaceOn = vm.heat.furnaceOn;
+                        vm.furnaceOff = vm.heat.furnaceOff;
+                    }
+                    else{
+                        vm.heat = {};
+                    }
+                    vm.status = response.statusText;
+                    setHeatValues(item);
+                },
+                function myError(response) {
+                    vm.error = response.data.detail;
+                    vm.status = response.statusText;
+                });
+
+            $http({
+                method: 'GET',
+                url: '/api/heatdetails/heatmix',
+                params: { id: parseInt(item.id) }
+            }).then(function mySuccess(response) {
+                if (response.data) {
+                    vm.heatmix = response.data;
+                }else{
+                    vm.heatmix={};
+                }
+                vm.status = response.statusText;
+                setHeatValues(item);
+            }, function myError(response) {
+                vm.error = response.data.detail;
+                vm.status = response.statusText;
+            });
+        };
+
+        function setHeatValues(item) {
+            vm.heat.heatId = parseInt(item.id);
+            vm.heatmix.dimHeatId = parseInt(item.id);
+            if (!vm.heat.furnaceOn) {
+                vm.heat.furnaceOn = new Date(item.dimDateOn.date);
+            }
+            if (!vm.heat.furnaceOff) {
+                vm.heat.furnaceOff = new Date(item.dimDateOff.date);
+            }
+            vm.heatName = item.heatId + "-" + item.sinteringHeatId;
+        }
+
+
     }
 
 

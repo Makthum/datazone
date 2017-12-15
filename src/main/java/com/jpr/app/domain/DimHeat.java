@@ -21,11 +21,16 @@ public class DimHeat {
 	private String heatId;
 	private Character furnaceId;
 	private int sinteringHeatId;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "dimDateId", referencedColumnName = "date_id")
+	@JoinColumn(name = "dimDateOnId", referencedColumnName = "date_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private DimDate dimDate;
+	private DimDate dimDateOn;
+
+	@ManyToOne
+	@JoinColumn(name = "dimDateOffId", referencedColumnName = "date_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private DimDate dimDateOff;
 
 	public int getId() {
 		return id;
@@ -43,8 +48,6 @@ public class DimHeat {
 		this.heatId = heatId;
 	}
 
-	
-
 	public Character getFurnaceId() {
 		return furnaceId;
 	}
@@ -61,13 +64,20 @@ public class DimHeat {
 		this.sinteringHeatId = sinteringHeatId;
 	}
 
-	public DimDate getDimDate() {
-		return dimDate;
+	public DimDate getDimDateOn() {
+		return dimDateOn;
 	}
 
-	public void setDimDate(DimDate dimDate) {
-		this.dimDate = dimDate;
+	public void setDimDateOn(DimDate dimDateOn) {
+		this.dimDateOn = dimDateOn;
 	}
 
-	
+	public DimDate getDimDateOff() {
+		return dimDateOff;
+	}
+
+	public void setDimDateOff(DimDate dimDateOff) {
+		this.dimDateOff = dimDateOff;
+	}
+
 }

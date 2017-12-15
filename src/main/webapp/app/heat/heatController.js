@@ -53,8 +53,20 @@
                 'opened': false
             })
         }
-        vm.open1 = function(count) {
+        vm.open1 = function() {
             vm.dateOpened = true;
+        };
+
+        vm.open2 = function() {
+            vm.dateOpened2 = true;
+        };
+
+        vm.open3 = function() {
+            vm.dateOpened3 = true;
+        };
+
+        vm.open4 = function() {
+            vm.dateOpened4 = true;
         };
 
         vm.setDate = function(year, month, day) {
@@ -95,6 +107,8 @@
 
 
         vm.save = function() {
+            vm.error = "";
+            vm.status= "";
             $http({
                 method: 'POST',
                 url: '/api/heats',
@@ -110,23 +124,18 @@
         };
 
         vm.update = function() {
-
-            var putdata = {
-                "id": vm.updateId,
-                "name": vm.updateName
-            };
+            vm.error = "";
+            vm.status= "";
             $http({
                 method: 'PUT',
                 url: '/api/heats',
-                data: vm.updateitems,
+                data: angular.toJson(vm.updateItems),
                 headers: {
                     'Content-Type': 'application/json'
                 }
             }).then(function mySuccess(response) {
-                vm.updateResult = response.data;
                 reload();
             }, function myError(response) {
-                vm.updateResult = response.data;
                 reload();
             });
         };
@@ -141,6 +150,8 @@
         };
 
         function reload() {
+            vm.error = "";
+            vm.status= "";
             vm.tableParams.reload();
         }
 

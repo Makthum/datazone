@@ -32,7 +32,7 @@ public class FactScrapRecv {
 	@OnDelete(action =OnDeleteAction.CASCADE)
 	private DimDate dimDate;
 	
-	private int quantity;
+	private Double quantity;
 
 	public ScrapRecvPk getId() {
 		return id;
@@ -58,13 +58,15 @@ public class FactScrapRecv {
 		this.dimDate = dimDate;
 	}
 
-	public int getQuantity() {
+	public Double getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(Double quantity) {
 		this.quantity = quantity;
 	}
+
+	
 
 	
 	

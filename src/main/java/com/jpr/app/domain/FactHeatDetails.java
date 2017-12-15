@@ -43,6 +43,7 @@ public class FactHeatDetails {
 	private Integer unitPerTon;
 	private Integer tappingTime;
 	private Double powerFactor;
+	private Double siMnUtilization;
 
 	public int getDimHeatId() {
 		return dimHeatId;
@@ -170,6 +171,14 @@ public class FactHeatDetails {
 
 	public void setPowerFactor(Double powerFactor) {
 		this.powerFactor = powerFactor;
+	}
+
+	public Double getSiMnUtilization() {
+		return siMnUtilization;
+	}
+
+	public void setSiMnUtilization(Double siMnUtilization) {
+		this.siMnUtilization = siMnUtilization;
 	}
 
 }

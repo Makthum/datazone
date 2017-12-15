@@ -3,27 +3,9 @@
         <span class="text-center"><h3>New Heat Detail</h3></span>
         <form ng-submit="vm.save()">
             <table class="table table-responsive table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th class="bg-success">HeatId</th>
-                        <th class="bg-success">furnaceOn</th>
-                        <th class="bg-success">furnaceOff</th>
-                        <th class="bg-success">heat Type</th>
-                        <th class="bg-success">Slag</th>
-                        <th class="bg-success">Production </th>
-                        <th class="bg-success">TimeTaken </th>
-                        <th class="bg-success">delay</th>
-                        <th class="bg-success">Tapping Temperature</th>
-                        <th class="bg-success">Tapping Time</th>
-                        <th class="bg-success">Maximum Demand</th>
-                        <th class="bg-success">Unit Per Ton</th>
-                        <th class="bg-success">Units Consumed</th>
-                        <th class="bg-success">Power Factor</th>
-                        <th class="bg-success">Issue Id </th>
-                    </tr>
-                </thead>
                 <tbody>
                     <tr>
+                        <th class="bg-success">HeatId</th>
                         <td>
                             <div class="btn-group" uib-dropdown keyboard-nav>
                                 <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>
@@ -36,12 +18,46 @@
                                 </ul>
                             </div>
                         </td>
+                        <th class="bg-success">delay</th>
                         <td>
-                            <div uib-timepicker ng-model="vm.heat.furnaceOn" show-meridian="false" show-spinners="false"> </div>
+                            <input type="text" ng-model="vm.heat.delay" class="form-control" ng-required=" vm.heat.timeTaken > 150 " />
                         </td>
+                        <th class="bg-success">Carbon</th>
                         <td>
-                            <div uib-timepicker ng-model="vm.heat.furnaceOff" show-spinners="false" show-meridian="false"></div>
+                            <input type="text" ng-model="vm.heatmix.carbon" class="form-control" />
                         </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-success">furnaceOn</th>
+                        <td>
+                            <div uib-timepicker ng-change="vm.furnaceOnChanged()" ng-model="vm.furnaceOn" show-meridian="false" show-spinners="false"> </div>
+                        </td>
+                        <th class="bg-success">Tapping Temperature</th>
+                        <td>
+                            <input type="text" ng-model="vm.heat.tappingTemp" class="form-control" ng-required="true">
+                        </td>
+                        <th class="bg-success">Manganese</th>
+                        <td>
+                            <input type="text" ng-model="vm.heatmix.manganese" class="form-control" />
+                        </td>
+                    </tr>
+                    </tr>
+                    <tr>
+                        <th class="bg-success">furnaceOff</th>
+                        <td>
+                            <div uib-timepicker ng-change="vm.furnaceOffChanged()" ng-model="vm.furnaceOff" show-spinners="false" show-meridian="false"></div>
+                        </td>
+                        <th class="bg-success">Tapping Time</th>
+                        <td>
+                            <input type="text" ng-model="vm.heat.tappingTime" class="form-control" ng-required="true">
+                        </td>
+                        <th class="bg-success">Silicon</th>
+                        <td>
+                            <input type="text" ng-model="vm.heatmix.silicon" class="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-success">heat Type</th>
                         <td>
                             <div class="btn-group" uib-dropdown keyboard-nav>
                                 <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>
@@ -57,36 +73,59 @@
                                 </ul>
                             </div>
                         </td>
+                        <th class="bg-success">Maximum Demand</th>
+                        <td>
+                            <input type="text" ng-model="vm.heat.maximumOperatingPower" class="form-control" ng-required="true">
+                        </td>
+                        <th class="bg-success">Sulphur</th>
+                        <td>
+                            <input type="text" ng-model="vm.heatmix.sulphur" class="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-success">Slag</th>
                         <td>
                             <input type="text" ng-model="vm.heat.slag" class="form-control" ng-required="true">
                         </td>
-                        <td>
-                            <input type="text" ng-model="vm.heat.production" class="form-control" ng-required="true">
-                        </td>
-                        <td>
-                            <input type="text" ng-model="vm.heat.timeTaken" class="form-control" ng-required="true" />
-                        </td>
-                        <td>
-                            <input type="text" ng-model="vm.heat.delay" class="form-control" ng-required=" vm.heat.timeTaken > 150 " />
-                        </td>
-                        <td>
-                            <input type="text" ng-model="vm.heat.tappingTemp" class="form-control" ng-required="true">
-                        </td>
-                        <td>
-                            <input type="text" ng-model="vm.heat.tappingTime" class="form-control" ng-required="true">
-                        </td>
-                        <td>
-                            <input type="text" ng-model="vm.heat.maximumOperatingPower" class="form-control"  ng-required="true">
-                        </td>
+                        <th class="bg-success">Unit Per Ton</th>
                         <td>
                             <input type="text" ng-model="vm.heat.unitPerTon" class="form-control" ng-required="true">
                         </td>
+                        <th class="bg-success">Phosphorus</th>
+                        <td>
+                            <input type="text" ng-model="vm.heatmix.phosphorous" class="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-success">Production </th>
+                        <td>
+                            <input type="text" ng-model="vm.heat.production" class="form-control" ng-required="true">
+                        </td>
+                        <th class="bg-success">Units Consumed</th>
                         <td>
                             <input type="text" ng-model="vm.heat.unitConsumed" class="form-control" ng-required="true">
                         </td>
+                        <th class="bg-success">Silico Manganese</th>
+                        <td>
+                            <input type="text" ng-model="vm.heatmix.silicoManganese" class="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-success">TimeTaken </th>
+                        <td>
+                            <input type="text" ng-model="vm.heat.timeTaken" class="form-control" ng-required="true" />
+                        </td>
+                        <th class="bg-success">Power Factor</th>
                         <td>
                             <input type="text" ng-model="vm.heat.powerFactor" class="form-control" ng-required="true">
                         </td>
+                        <th class="bg-success">Ferro Manganese</th>
+                        <td>
+                            <input type="text" ng-model="vm.heatmix.ferroManganese" class="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-success">Issue Id </th>
                         <td>
                             <div class="btn-group" uib-dropdown keyboard-nav>
                                 <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>
@@ -99,57 +138,11 @@
                                 </ul>
                             </div>
                         </td>
+                        <th class="bg-success">Aluminium </th>
+                            <td>
+                                <input type="text" ng-model="vm.heatmix.aluminium" class="form-control" />
+                            </td>
                     </tr>
-                </tbody>
-            </table>
-            <table class="table ttable-responsive  table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th class="bg-primary">Heat Id</th>
-                        <th class="bg-primary">Carbon</th>
-                        <th class="bg-primary">Manganese</th>
-                        <th class="bg-primary">Silicon</th>
-                        <th class="bg-primary">Sulphur</th>
-                        <th class="bg-primary">Phosphorus</th>
-                        <th class="bg-primary">Silico Manganese</th>
-                        <th class="bg-primary">Ferro Manganese</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="btn-group" uib-dropdown keyboard-nav>
-                                <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>
-                                    {{vm.heatName}} <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
-                                    <li ng-repeat="choice in vm.heats">
-                                        <a href ng-click="vm.selectHeat(choice)">{{choice.heatId}} - {{choice.sinteringHeatId}}</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        <td>
-                            <input type="text" ng-model="vm.heatmix.carbon" />
-                        </td>
-                        <td>
-                            <input type="text" ng-model="vm.heatmix.manganese" />
-                        </td>
-                        <td>
-                            <input type="text" ng-model="vm.heatmix.silicon" />
-                        </td>
-                        <td>
-                            <input type="text" ng-model="vm.heatmix.sulphur" />
-                        </td>
-                        <td>
-                            <input type="text" ng-model="vm.heatmix.phosphorous" />
-                        </td>
-                        <td>
-                            <input type="text" ng-model="vm.heatmix.silicoManganese" />
-                        </td>
-                        <td>
-                            <input type="text" ng-model="vm.heatmix.ferroManganese" />
-                        </td </tr>
                 </tbody>
             </table>
             <!--table class="table table-condensed table-bordered table-striped">
@@ -201,4 +194,4 @@
         </form>
     </div>
 </div>
-<div> {{vm.error}}</div>
+<div> {{vm.error}} {{vm.status}}</div>

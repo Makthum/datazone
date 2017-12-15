@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6">
-         <span class="text-center"><h3>New Heat</h3></span>
+        <span class="text-center"><h3>New Heat</h3></span>
         <form ng-submit="vm.save()">
             <table class="table table-striped table-bordered">
                 <thead>
@@ -8,7 +8,8 @@
                         <th class="btn-warning">HeatId</th>
                         <th class="btn-warning">furnaceId</th>
                         <th class="btn-warning">SinteringHeatId</th>
-                        <th class="btn-warning">Date</th>
+                        <th class="btn-warning">Date On</th>
+                        <th class="btn-warning">Date Off</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,9 +25,19 @@
                         </td>
                         <td>
                             <p class="input-group">
-                                <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.items.date" is-open="vm.dateOpened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.items.dateOn" is-open="vm.dateOpened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
                                 <button type="button" class="btn btn-default"
                                     ng-click="vm.open1()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                            </p>
+                        </td>
+                        <td>
+                            <p class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.items.dateOff" is-open="vm.dateOpened2" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                    ng-click="vm.open2()">
                                     <i class="glyphicon glyphicon-calendar"></i>
                                 </button>
                             </span>
@@ -47,28 +58,43 @@
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
+                        <th class="btn-warning">InternalId</th>
                         <th class="btn-warning">HeatId</th>
                         <th class="btn-warning">furnaceId</th>
                         <th class="btn-warning">SinteringHeatId</th>
-                        <th class="btn-warning">Date</th>
+                        <th class="btn-warning">Date On</th>
+                        <th class="btn-warning">Date Off</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>
-                            <input type="text" ng-model="vm.items.heatId" class="form-control" />
+                            <input type="text" ng-model="vm.updateItems.id" class="form-control" />
                         </td>
                         <td>
-                            <input type="text" ng-model="vm.items.furnaceId" class="form-control" />
+                            <input type="text" ng-model="vm.updateItems.heatId" class="form-control" />
                         </td>
                         <td>
-                            <input type="text" ng-model="vm.items.sinteringHeatId" class="form-control" />
+                            <input type="text" ng-model="vm.updateItems.furnaceId" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="text" ng-model="vm.updateItems.sinteringHeatId" class="form-control" />
                         </td>
                         <td>
                             <p class="input-group">
-                                <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.issueUpdate.date" is-open="vm.date.opened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.updateItems.dateOn" is-open="vm.dateOpened3" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
                                 <button type="button" class="btn btn-default"
-                                    ng-click="vm.open1()">
+                                    ng-click="vm.open3()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                            </p>
+                        </td>
+                        <td>
+                            <p class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.updateItems.dateOff" is-open="vm.dateOpened4" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                    ng-click="vm.open4()">
                                     <i class="glyphicon glyphicon-calendar"></i>
                                 </button>
                             </span>
@@ -91,8 +117,10 @@
     <div class="col-md-12">
         <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped">
             <tr ng-repeat="item in $data">
-                <td data-title="'date'" header-class="'bg-primary'" sortable="'name'">
-                    {{item.dimDate.date}}</td>
+                <td data-title="'dateOn'" header-class="'bg-primary'" sortable="'name'">
+                    {{item.dimDateOn.date}}</td>
+                <td data-title="'dateOff'" header-class="'bg-primary'" sortable="'name'">
+                    {{item.dimDateOff.date}}</td>
                 <td data-title="'Id'" header-class="'bg-primary'" sortable="'id'">
                     {{item.id}}</td>
                 <td data-title="'heatId'" header-class="'bg-primary'" sortable="'name'">
@@ -101,8 +129,8 @@
                     {{item.furnaceId}}</td>
                 <td data-title="'Sintering Heat Id'" header-class="'bg-primary'" sortable="'name'">
                     {{item.sinteringHeatId}}</td>
-              
             </tr>
         </table>
     </div>
 </div>
+{{vm.error}} status : {{vm.status}}

@@ -10,6 +10,6 @@ import com.jpr.app.domain.DimHeat;
 public interface DimHeatRepository extends JpaRepository<DimHeat, Integer>{
 	
 	
-	List<DimHeat> findByDimDateDateAfter(Date date);
+	List<DimHeat> findByDimDateOnDateAfter(Date date);
 
 }

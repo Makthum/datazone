@@ -94,6 +94,8 @@
         };
 
         vm.save = function() {
+            vm.error = "";
+            vm.status= "";
             $http({
                 method: 'POST',
                 url: '/api/scrap/received',
@@ -102,9 +104,11 @@
                     'Content-Type': 'application/json'
                 }
             }).then(function mySuccess(response) {
-                vm.status = response.data;
+                vm.error = response.data.detail;
+                vm.status = response.statusText;
             }, function myError(response) {
-                vm.status = response.data;
+                vm.error = response.data.detail;
+                vm.status = response.statusText;
             });
 
 
@@ -115,14 +119,19 @@
         }
 
         function getScrapTypes() {
+            vm.error = "";
+            vm.status= "";
             $http({
                     method: 'GET',
                     url: '/api/scrap/types',
                 })
                 .then(function mySuccess(response) {
                     vm.scrapTypes = response.data;
+                    vm.error = response.data.detail;
+                    vm.status = response.statusText;
                 }, function myError(response) {
-                    vm.error = response.statusText;
+                    vm.error = response.data.detail;
+                    vm.status = response.statusText;
                 });
         };
     }

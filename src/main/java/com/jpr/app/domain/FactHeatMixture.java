@@ -20,8 +20,9 @@ public class FactHeatMixture {
 	private Double silicon;
 	private Double phosphorous;
 	private Double sulphur;
-	private Integer silicoManganese;
-	private Integer ferroManganese;
+	private Double silicoManganese;
+	private Double ferroManganese;
+	private Double aluminium;
 	@Id
 	private int dimHeatId;
 
@@ -87,21 +88,31 @@ public class FactHeatMixture {
 		this.dimHeat = dimHeat;
 	}
 
-	public Integer getSilicoManganese() {
+	public Double getSilicoManganese() {
 		return silicoManganese;
 	}
 
-	public void setSilicoManganese(Integer silicoManganese) {
+	public void setSilicoManganese(Double silicoManganese) {
 		this.silicoManganese = silicoManganese;
 	}
 
-	public Integer getFerroManganese() {
+	public Double getFerroManganese() {
 		return ferroManganese;
 	}
 
-	public void setFerroManganese(Integer ferroManganese) {
+	public void setFerroManganese(Double ferroManganese) {
 		this.ferroManganese = ferroManganese;
 	}
+
+	public Double getAluminium() {
+		return aluminium;
+	}
+
+	public void setAluminium(Double aluminium) {
+		this.aluminium = aluminium;
+	}
+
+	
 	
 	
 

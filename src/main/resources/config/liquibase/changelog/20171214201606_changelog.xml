@@ -1,0 +1,258 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="zarroc (generated)" id="1513262773229-1">
+        <createTable tableName="dimcomponent">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="dimcomponentPK"/>
+            </column>
+            <column name="component" type="VARCHAR(255)"/>
+            <column name="department" type="VARCHAR(255)"/>
+            <column name="sub_component" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-2">
+        <createTable tableName="dimdate">
+            <column name="date_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="date"/>
+            <column name="day_of_week" type="VARCHAR(255)"/>
+            <column name="month" type="VARCHAR(255)"/>
+            <column name="month_day" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="timestamp" type="BIGINT"/>
+            <column name="week_starting_monday" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="weekend" type="VARCHAR(255)"/>
+            <column name="year" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-3">
+        <createTable tableName="dimheat">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="dimheatPK"/>
+            </column>
+            <column name="furnace_id" type="CHAR(1)"/>
+            <column name="heat_id" type="VARCHAR(255)"/>
+            <column name="sintering_heat_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dim_date_off_id" type="INT"/>
+            <column name="dim_date_on_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-4">
+        <createTable tableName="dimissue">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="dimissuePK"/>
+            </column>
+            <column name="issue_description" type="VARCHAR(255)"/>
+            <column name="issue_resolution" type="VARCHAR(255)"/>
+            <column name="time_taken" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="worked_by" type="VARCHAR(255)"/>
+            <column name="dim_component_id" type="INT"/>
+            <column name="dim_date_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-5">
+        <createTable tableName="dimscrap">
+            <column name="id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-6">
+        <createTable tableName="factheatdetails">
+            <column name="dim_heat_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delay" type="INT"/>
+            <column name="furnace_off" type="datetime"/>
+            <column name="furnace_on" type="datetime"/>
+            <column name="heat_type" type="VARCHAR(255)"/>
+            <column name="maximum_operating_power" type="INT"/>
+            <column name="power_factor" type="DOUBLE"/>
+            <column name="production" type="DOUBLE"/>
+            <column name="si_mn_utilization" type="DOUBLE"/>
+            <column name="slag" type="DOUBLE"/>
+            <column name="tapping_temp" type="INT"/>
+            <column name="tapping_time" type="INT"/>
+            <column name="time_taken" type="INT"/>
+            <column name="unit_consumed" type="INT"/>
+            <column name="unit_per_ton" type="INT"/>
+            <column name="dim_issue_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-7">
+        <createTable tableName="factheatmixture">
+            <column name="dim_heat_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="aluminium" type="DOUBLE"/>
+            <column name="carbon" type="DOUBLE"/>
+            <column name="ferro_manganese" type="DOUBLE"/>
+            <column name="manganese" type="DOUBLE"/>
+            <column name="phosphorous" type="DOUBLE"/>
+            <column name="silico_manganese" type="DOUBLE"/>
+            <column name="silicon" type="DOUBLE"/>
+            <column name="sulphur" type="DOUBLE"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-8">
+        <createTable tableName="factheatrawmaterialmixture">
+            <column name="dim_heat_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ferro_manganese" type="DOUBLE"/>
+            <column name="silico_manganese" type="DOUBLE"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-9">
+        <createTable tableName="factheatrawmaterialmixture_scraps">
+            <column name="fact_heat_raw_material_mixture_dim_heat_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="scraps_dim_heat_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="scraps_dim_scrap_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-10">
+        <createTable tableName="factscrapissued">
+            <column name="dim_date_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dim_scrap_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="DOUBLE"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-11">
+        <createTable tableName="factscraprecv">
+            <column name="dim_date_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dim_scrap_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="DOUBLE"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-12">
+        <createTable tableName="rawmaterialcost">
+            <column name="date_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="scrap_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-13">
+        <createTable tableName="rawmaterialitem">
+            <column name="dim_heat_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dim_scrap_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="DOUBLE"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-14">
+        <addPrimaryKey columnNames="date_id" constraintName="dimdatePK" tableName="dimdate"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-15">
+        <addPrimaryKey columnNames="id" constraintName="dimscrapPK" tableName="dimscrap"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-16">
+        <addPrimaryKey columnNames="dim_heat_id" constraintName="factheatdetailsPK" tableName="factheatdetails"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-17">
+        <addPrimaryKey columnNames="dim_heat_id" constraintName="factheatmixturePK" tableName="factheatmixture"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-18">
+        <addPrimaryKey columnNames="dim_heat_id" constraintName="factheatrawmaterialmixturePK" tableName="factheatrawmaterialmixture"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-19">
+        <addPrimaryKey columnNames="dim_date_id, dim_scrap_id" constraintName="factscrapissuedPK" tableName="factscrapissued"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-20">
+        <addPrimaryKey columnNames="dim_date_id, dim_scrap_id" constraintName="factscraprecvPK" tableName="factscraprecv"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-21">
+        <addPrimaryKey columnNames="date_id, scrap_id" constraintName="rawmaterialcostPK" tableName="rawmaterialcost"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-22">
+        <addPrimaryKey columnNames="dim_heat_id, dim_scrap_id" constraintName="rawmaterialitemPK" tableName="rawmaterialitem"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-23">
+        <addUniqueConstraint columnNames="scraps_dim_heat_id, scraps_dim_scrap_id" constraintName="UK_hupghv1l8by5mkt4jj1e9t70b" tableName="factheatrawmaterialmixture_scraps"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-24">
+        <addForeignKeyConstraint baseColumnNames="dim_issue_id" baseTableName="factheatdetails" constraintName="FK49v63wuatua7ub71ti691u5i4" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="dimissue"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-25">
+        <addForeignKeyConstraint baseColumnNames="dim_date_id" baseTableName="factscraprecv" constraintName="FK5w4844fgxm3ghrlxw4ltx4pbq" deferrable="false" initiallyDeferred="false" referencedColumnNames="date_id" referencedTableName="dimdate"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-26">
+        <addForeignKeyConstraint baseColumnNames="dim_scrap_id" baseTableName="factscraprecv" constraintName="FK8hgp1wjj7728sm9jc57kwmsvy" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="dimscrap"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-27">
+        <addForeignKeyConstraint baseColumnNames="date_id" baseTableName="rawmaterialcost" constraintName="FKagni7td7yi2pqvdrniu070x89" deferrable="false" initiallyDeferred="false" referencedColumnNames="date_id" referencedTableName="dimdate"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-28">
+        <addForeignKeyConstraint baseColumnNames="scraps_dim_heat_id,scraps_dim_scrap_id" baseTableName="factheatrawmaterialmixture_scraps" constraintName="FKcy2iiv1rtp84ntajqivp4ell4" deferrable="false" initiallyDeferred="false" referencedColumnNames="dim_heat_id,dim_scrap_id" referencedTableName="rawmaterialitem"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-29">
+        <addForeignKeyConstraint baseColumnNames="dim_heat_id" baseTableName="factheatdetails" constraintName="FKefjxvmneo9twl7bslqwhf89yb" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="dimheat"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-30">
+        <addForeignKeyConstraint baseColumnNames="dim_date_id" baseTableName="dimissue" constraintName="FKgh5sq4ep1e4hn8cvjwubohgyp" deferrable="false" initiallyDeferred="false" referencedColumnNames="date_id" referencedTableName="dimdate"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-31">
+        <addForeignKeyConstraint baseColumnNames="dim_heat_id" baseTableName="rawmaterialitem" constraintName="FKk0v3v361w6gc02s9fxuj7wfrn" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="dimheat"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-32">
+        <addForeignKeyConstraint baseColumnNames="dim_component_id" baseTableName="dimissue" constraintName="FKm8qvmp6qqf9l78lbh2y2d2u2k" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="dimcomponent"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-33">
+        <addForeignKeyConstraint baseColumnNames="dim_date_id" baseTableName="factscrapissued" constraintName="FKmiqmg77w8oj0imllvvv668i5d" deferrable="false" initiallyDeferred="false" referencedColumnNames="date_id" referencedTableName="dimdate"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-34">
+        <addForeignKeyConstraint baseColumnNames="dim_heat_id" baseTableName="factheatrawmaterialmixture" constraintName="FKnc0cyaikhpexleye4dko9rmbs" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="dimheat"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-35">
+        <addForeignKeyConstraint baseColumnNames="scrap_id" baseTableName="rawmaterialcost" constraintName="FKoqt5o4jhhilun171uwrw452" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="dimscrap"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-36">
+        <addForeignKeyConstraint baseColumnNames="dim_date_off_id" baseTableName="dimheat" constraintName="FKp21rud97ncxv30qo3dm75e8uc" deferrable="false" initiallyDeferred="false" referencedColumnNames="date_id" referencedTableName="dimdate"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-37">
+        <addForeignKeyConstraint baseColumnNames="fact_heat_raw_material_mixture_dim_heat_id" baseTableName="factheatrawmaterialmixture_scraps" constraintName="FKp9xcnjq1wch0l88pg7wt4aoem" deferrable="false" initiallyDeferred="false" referencedColumnNames="dim_heat_id" referencedTableName="factheatrawmaterialmixture"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-38">
+        <addForeignKeyConstraint baseColumnNames="dim_scrap_id" baseTableName="rawmaterialitem" constraintName="FKqfdb3xn0u02kwb2p8ygbr46ji" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="dimscrap"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-39">
+        <addForeignKeyConstraint baseColumnNames="dim_date_on_id" baseTableName="dimheat" constraintName="FKshn3buycscvphklthicp30noe" deferrable="false" initiallyDeferred="false" referencedColumnNames="date_id" referencedTableName="dimdate"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-40">
+        <addForeignKeyConstraint baseColumnNames="dim_scrap_id" baseTableName="factscrapissued" constraintName="FKsjhfe9i21pubchcme1sv3mac" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="dimscrap"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1513262773229-41">
+        <addForeignKeyConstraint baseColumnNames="dim_heat_id" baseTableName="factheatmixture" constraintName="FKt7hm7onvvjwx88rufvdc9b8rp" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="dimheat"/>
+    </changeSet>
+</databaseChangeLog>

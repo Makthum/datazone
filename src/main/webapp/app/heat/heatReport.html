@@ -36,7 +36,9 @@
             <td data-title="'Heat Id'" header-class="'bg-primary'" sortable="'DimHeat.heatId'">
                 {{item.dimHeat.heatId}}</td>
             <td data-title="'Date'" header-class="'bg-primary'" sortable="'dimHeat.dimDate.date'">
-                {{item.dimHeat.dimDate.date }}</td>
+                {{item.dimHeat.dimDateOn.date }}</td>
+             <td data-title="'Date'" header-class="'bg-primary'" sortable="'dimHeat.dimDate.date'">
+                {{item.dimHeat.dimDateOff.date }}</td>
             <td data-title="'furnace On'" header-class="'bg-primary'" sortable="'furnaceOn'">
                 {{item.furnaceOn | date : 'HH:mm:ss': '+0530'}}</td>
             <td data-title="'Furnace off'" header-class="'bg-primary'" sortable="'furnaceOff'">
@@ -68,3 +70,4 @@
         </tr>
     </table>
 </div>
+{{vm.error}}    status : {{vm.status}}

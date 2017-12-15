@@ -15,13 +15,13 @@ import com.jpr.app.domain.FactHeatDetails;
 
 public interface FactHeatDetailsRepository extends JpaRepository<FactHeatDetails, Integer> {
 
-	List<FactHeatDetails> findByDimHeatDimDateDateBetween(Date fromDate, Date toDate, Pageable page);
+	List<FactHeatDetails> findByDimHeatDimDateOnDateBetween(Date fromDate, Date toDate, Pageable page);
 
 	@Query(value = "select sum(production) as production, sum(slag) as slag ,sum(delay) as BreakDown ,"
 			+ "sum(unit_consumed) as ElectricityUnit," + "avg(power_factor) as PowerFactor,"
 			+ "sum(time_taken) as RunningTime," + "avg(time_taken) as AverageRunningTime,"
 			+ "avg(tapping_time) as AverageTappingTime," + "avg(unit_per_ton) as AvgUPT"
-			+ " from factheatdetails  t inner join (select * from dimHeat h inner join dimdate d on d.date_id = h.dim_date_id where d.date = ? ) x on x.id = t.dim_heat_id", nativeQuery = true)
+			+ " from factheatdetails  t inner join (select * from dimHeat h inner join dimdate d on d.date_id = h.dim_date_on_id where d.date = ? ) x on x.id = t.dim_heat_id", nativeQuery = true)
 	List<Object[]> getDailyReport(String date);
 
 }

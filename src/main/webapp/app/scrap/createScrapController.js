@@ -67,7 +67,8 @@
                         params.total(response.data.length);
                         return vm.tabledata;
                     }, function myError(response) {
-                        vm.error = response.statusText;
+                        vm.error = response.data.detail;
+                        vm.status = response.statusText;
                     });
                 }
             });
@@ -83,6 +84,8 @@
         };
 
         vm.save = function() {
+            vm.error = "";
+            vm.status = "";
             $http({
                 method: 'POST',
                 url: '/api/scrap/type',
@@ -91,13 +94,19 @@
                     'Content-Type': 'application/json'
                 }
             }).then(function mySuccess(response) {
+                vm.error = response.data.detail;
+                vm.status = response.statusText;
                 reload();
             }, function myError(response) {
+                vm.error = response.data.detail;
+                vm.status = response.statusText;
                 reload();
             });
         };
 
         vm.saveCost = function() {
+            vm.error = "";
+            vm.status = "";
             $http({
                 method: 'POST',
                 url: '/api/cost',
@@ -106,14 +115,19 @@
                     'Content-Type': 'application/json'
                 }
             }).then(function mySuccess(response) {
+                vm.error = response.data.detail;
+                vm.status = response.statusText;
                 reload();
             }, function myError(response) {
+                vm.error = response.data.detail;
+                vm.status = response.statusText;
                 reload();
             });
         };
 
         vm.update = function() {
-
+            vm.error = "";
+            vm.status = "";
             var putdata = {
                 "id": vm.updateId,
                 "name": vm.updateName
@@ -129,12 +143,16 @@
                 vm.updateResult = response.data;
                 reload();
             }, function myError(response) {
+                vm.error = response.data.detail;
+                vm.status = response.statusText;
                 vm.updateResult = response.data;
                 reload();
             });
         };
 
         function getId() {
+            vm.error = "";
+            vm.status = "";
             $http({
                 method: 'GET',
                 url: '/api/scrap/getid',
@@ -142,7 +160,8 @@
                 vm.maxId = response.data;
                 vm.currentId = parseInt(vm.maxId) + 1;
             }, function myError(response) {
-                vm.error = response.statusText;
+                vm.error = response.data.detail;
+                vm.status = response.statusText;
             });
 
         };
@@ -155,6 +174,8 @@
         };
 
         function reload() {
+            vm.error = "";
+            vm.status = "";
             vm.tableParams.reload();
         }
 

@@ -54,14 +54,16 @@
             opened: false
         };
 
-        
 
-        vm.load = function(){
+
+        vm.load = function() {
             getReport();
         };
 
 
         function getReport() {
+            vm.error = "";
+            vm.status= "";
             $http({
                 method: 'POST',
                 url: '/api/reports/daily',
@@ -71,10 +73,11 @@
                 }
             }).then(function mySuccess(response) {
                 vm.details = response.data;
-                vm.error = "";
+                vm.status = response.statusText;
             }, function myError(response) {
-                vm.details ={};
+                vm.details = {};
                 vm.error = response.data.detail;
+                vm.status = response.statusText;
             });
 
             $http({
@@ -86,10 +89,11 @@
                 }
             }).then(function mySuccess(response) {
                 vm.composition = response.data;
-                vm.error = "";
+                vm.status = response.statusText;
             }, function myError(response) {
-                vm.composition ={};
+                vm.composition = {};
                 vm.error = response.data.detail;
+                vm.status = response.statusText;
             });
 
             $http({
@@ -101,10 +105,11 @@
                 }
             }).then(function mySuccess(response) {
                 vm.costComposition = response.data;
-                vm.error = "";
+                vm.status = response.statusText;
             }, function myError(response) {
-                vm.composition ={};
+                vm.composition = {};
                 vm.error = response.data.detail;
+                vm.status = response.statusText;
             });
         };
 

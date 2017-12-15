@@ -4,10 +4,12 @@ import java.util.Date;
 
 public class DimHeatDTO {
 	
+	private int id;
 	private String heatId;
 	private Character furnaceId;
 	private int sinteringHeatId;
-	private Date date;
+	private Date dateOn;
+	private Date dateOff;
 	public String getHeatId() {
 		return heatId;
 	}
@@ -26,12 +28,26 @@ public class DimHeatDTO {
 	public void setSinteringHeatId(int sinteringHeatId) {
 		this.sinteringHeatId = sinteringHeatId;
 	}
-	public Date getDate() {
-		return date;
+	public Date getDateOn() {
+		return dateOn;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDateOn(Date dateOn) {
+		this.dateOn = dateOn;
 	}
+	public Date getDateOff() {
+		return dateOff;
+	}
+	public void setDateOff(Date dateOff) {
+		this.dateOff = dateOff;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
 	
 
 }
