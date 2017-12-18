@@ -5,9 +5,9 @@
         .module('jprApp')
         .controller('ScrapIssuedController', ScrapIssuedController);
 
-    ScrapIssuedController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', "NgTableParams", "$filter", "$stateParams"];
+    ScrapIssuedController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', "NgTableParams", "$filter", "$stateParams",'AlertService'];
 
-    function ScrapIssuedController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter, $stateParams) {
+    function ScrapIssuedController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter, $stateParams,AlertService) {
         var vm = this;
 
         vm.fromDate = $stateParams.fromDate;
@@ -108,10 +108,10 @@
                 }
             }).then(function mySuccess(response) {
                 vm.error = response.data.detail;
-                vm.status = response.statusText;
+              AlertService.success(response.statusText);
             }, function myError(response) {
-                vm.error = response.data.detail;
-                vm.status = response.statusText;
+                 AlertService.error(response.data.detail);
+                AlertService.error(response.statusText);
             });
 
 

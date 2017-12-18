@@ -5,9 +5,9 @@
         .module('jprApp')
         .controller('createScrapController', createScrapController);
 
-    createScrapController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', "NgTableParams", "$filter"];
+    createScrapController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', "NgTableParams", "$filter", 'AlertService'];
 
-    function createScrapController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter) {
+    function createScrapController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter, AlertService) {
         var vm = this;
 
         vm.account = null;
@@ -67,8 +67,8 @@
                         params.total(response.data.length);
                         return vm.tabledata;
                     }, function myError(response) {
-                        vm.error = response.data.detail;
-                        vm.status = response.statusText;
+                        AlertService.error(response.data.detail)
+                        AlertService.warning(response.statusText);
                     });
                 }
             });
@@ -94,12 +94,11 @@
                     'Content-Type': 'application/json'
                 }
             }).then(function mySuccess(response) {
-                vm.error = response.data.detail;
-                vm.status = response.statusText;
+                AlertService.success(response.statusText);
                 reload();
             }, function myError(response) {
-                vm.error = response.data.detail;
-                vm.status = response.statusText;
+                AlertService.error(response.data.detail);
+                AlertService.error(response.statusText);
                 reload();
             });
         };
@@ -115,12 +114,11 @@
                     'Content-Type': 'application/json'
                 }
             }).then(function mySuccess(response) {
-                vm.error = response.data.detail;
-                vm.status = response.statusText;
+                AlertService.success(response.statusText);
                 reload();
             }, function myError(response) {
-                vm.error = response.data.detail;
-                vm.status = response.statusText;
+                AlertService.error(response.data.detail);
+                AlertService.error(response.statusText);
                 reload();
             });
         };
@@ -141,10 +139,11 @@
                 }
             }).then(function mySuccess(response) {
                 vm.updateResult = response.data;
+                AlertService.success(response.statusText);
                 reload();
             }, function myError(response) {
-                vm.error = response.data.detail;
-                vm.status = response.statusText;
+                AlertService.error(response.data.detail);
+                AlertService.error(response.statusText);
                 vm.updateResult = response.data;
                 reload();
             });

@@ -1,0 +1,42 @@
+<div class="row">
+    <hr>
+    <span class="text-center"><h3>Monthly Scrap Received</h3></span><br>
+    <div class="col-md-offset-2 col-md-3">
+        <p class="input-group">
+            <span class="input-group-addon">From Date</span>
+            <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.fromDate" is-open="vm.opened1" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                    ng-click="vm.open1()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+        </p>
+    </div>
+    <div class="col-md-3">
+        <p class="input-group">
+            <span class="input-group-addon">From Date</span>
+            <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.toDate" is-open="vm.opened2" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                    ng-click="vm.open2()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+        </p>
+    </div>
+    <div class="col-md-3">
+        <button type="button" class="btn btn-success" ng-click="vm.load()"> Load
+        </button>
+    </div>
+</div>
+<hr>
+<div class="row">
+     <table class="table table-responsive table-bordered table-striped">
+            <tr ng-repeat="(key, value) in vm.received">
+                <th>{{value.name}}</th>
+                <td>
+                    {{value.quantity}}</a>
+                </td>
+            </tr>
+        </table>
+</div>
+{{vm.error}}    status : {{vm.status}}

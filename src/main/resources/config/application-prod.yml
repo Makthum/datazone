@@ -22,7 +22,7 @@ spring:
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:mysql://localhost:3306/jpr?useUnicode=true&characterEncoding=utf8&useSSL=false
-        username: root
+        username: jpradmin
         password: admin
         hikari:
             data-source-properties:

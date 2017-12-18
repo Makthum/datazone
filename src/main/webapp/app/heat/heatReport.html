@@ -35,9 +35,9 @@
         <tr ng-repeat="item in $data">
             <td data-title="'Heat Id'" header-class="'bg-primary'" sortable="'DimHeat.heatId'">
                 {{item.dimHeat.heatId}}</td>
-            <td data-title="'Date'" header-class="'bg-primary'" sortable="'dimHeat.dimDate.date'">
+            <td data-title="'Date'" header-class="'bg-primary'" sortable="'dimHeat.dimDateOn.date'">
                 {{item.dimHeat.dimDateOn.date }}</td>
-             <td data-title="'Date'" header-class="'bg-primary'" sortable="'dimHeat.dimDate.date'">
+             <td data-title="'Date'" header-class="'bg-primary'" sortable="'dimHeat.dimDateOff.date'">
                 {{item.dimHeat.dimDateOff.date }}</td>
             <td data-title="'furnace On'" header-class="'bg-primary'" sortable="'furnaceOn'">
                 {{item.furnaceOn | date : 'HH:mm:ss': '+0530'}}</td>

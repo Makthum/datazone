@@ -5,9 +5,9 @@
         .module('jprApp')
         .controller('heatDetailsController', heatDetailsController);
 
-    heatDetailsController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', "NgTableParams", "$filter"];
+    heatDetailsController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', "NgTableParams", "$filter", 'AlertService'];
 
-    function heatDetailsController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter) {
+    function heatDetailsController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter, AlertService) {
         var vm = this;
 
         vm.account = null;
@@ -121,10 +121,10 @@
                 }
             }).then(function mySuccess(response) {
                 vm.status = response.status;
-                vm.status = response.statusText;
+                AlertService.success(response.statusText);
             }, function myError(response) {
-                vm.error = response.data.detail;
-                vm.status = response.statusText;
+                AlertService.error(response.data.detail);
+                AlertService.error(response.statusText);
             });
 
             $http({
@@ -136,10 +136,10 @@
                 }
             }).then(function mySuccess(response) {
                 vm.status = response.status;
-                vm.status = response.statusText;
+                AlertService.success(response.statusText);
             }, function myError(response) {
-                vm.error = response.data.detail;
-                vm.status = response.statusText;
+                AlertService.error(response.data.detail);
+                AlertService.error(response.statusText);
             });
         };
 
@@ -158,12 +158,12 @@
                 }
             }).then(function mySuccess(response) {
                 vm.updateResult = response.data;
-                vm.status = response.statusText;
+                AlertService.success(response.statusText);
                 reload();
             }, function myError(response) {
                 vm.updateResult = response.data;
-                vm.error = response.data.detail;
-                vm.status = response.statusText;
+                AlertService.error(response.data.detail);
+                AlertService.error(response.statusText);
                 reload();
             });
         };
@@ -205,8 +205,8 @@
                 vm.heats = response.data;
                 vm.status = response.statusText;
             }, function myError(response) {
-                vm.error = response.data.detail;
-                vm.status = response.statusText;
+                AlertService.error(response.data.detail);
+                AlertService.error(response.statusText);
             });
         };
 
@@ -223,8 +223,8 @@
                 vm.issues = response.data;
                 vm.status = response.statusText;
             }, function myError(response) {
-                vm.error = response.data.detail;
-                vm.status = response.statusText;
+                AlertService.error(response.data.detail);
+                AlertService.error(response.statusText);
             });
         };
 
@@ -278,16 +278,15 @@
                         vm.heat.furnaceOff = new Date(vm.heat.furnaceOff);
                         vm.furnaceOn = vm.heat.furnaceOn;
                         vm.furnaceOff = vm.heat.furnaceOff;
-                    }
-                    else{
+                    } else {
                         vm.heat = {};
                     }
                     vm.status = response.statusText;
                     setHeatValues(item);
                 },
                 function myError(response) {
-                    vm.error = response.data.detail;
-                    vm.status = response.statusText;
+                    AlertService.error(response.data.detail);
+                AlertService.error(response.statusText);
                 });
 
             $http({
@@ -297,14 +296,14 @@
             }).then(function mySuccess(response) {
                 if (response.data) {
                     vm.heatmix = response.data;
-                }else{
-                    vm.heatmix={};
+                } else {
+                    vm.heatmix = {};
                 }
                 vm.status = response.statusText;
                 setHeatValues(item);
             }, function myError(response) {
-                vm.error = response.data.detail;
-                vm.status = response.statusText;
+                AlertService.error(response.data.detail);
+                AlertService.error(response.statusText);
             });
         };
 

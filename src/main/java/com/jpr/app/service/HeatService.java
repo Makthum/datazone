@@ -1,13 +1,21 @@
 package com.jpr.app.service;
 
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.transaction.Transactional;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -166,6 +174,103 @@ public class HeatService {
 		result.setDimHeat(heat);
 		result.setDimHeatId(dto.getHeatId());
 		return rawMaterialMixtureRepo.save(result);
+	}
+
+	public List<Map<Date, Double>> getProduction(Date fromDate, Date toDate, String[] fields) throws ParseException {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		List<Object[]> resultList = factHeatDetailsRepo.getProduction(format.format(fromDate), format.format(toDate));
+		List<Map<Date, Double>> results = new ArrayList<>();
+		for (String field : fields) {
+			int fieldId = getField(field);
+			Map<Date, Double> temp = new HashMap<>();
+			for (Object[] borderTypes : resultList) {
+				Date date = (Date) borderTypes[0];
+				temp.put(date, getFieldValue(field, borderTypes[fieldId]));
+			}
+			results.add(temp);
+		}
+		return results;
+	}
+
+	private int getField(String fieldName) {
+		if (fieldName.equalsIgnoreCase("production"))
+			return 1;
+		else if (fieldName.equalsIgnoreCase("RunningTime"))
+			return 2;
+		else if (fieldName.equalsIgnoreCase("upt"))
+			return 3;
+		else if (fieldName.equalsIgnoreCase("breakdown"))
+			return 4;
+		else if (fieldName.equalsIgnoreCase("powerFactor"))
+			return 5;
+		else if (fieldName.equalsIgnoreCase("maximumDemand"))
+			return 6;
+		else if (fieldName.equalsIgnoreCase("tappingTemperature"))
+			return 7;
+		else
+			return -1;
+
+	}
+
+	private Double getFieldValue(String fieldName, Object obj) {
+		if (fieldName.equalsIgnoreCase("production"))
+			return ((Double) obj);
+		else if (fieldName.equalsIgnoreCase("RunningTime"))
+			return ((BigDecimal) obj).doubleValue();
+		else if (fieldName.equalsIgnoreCase("upt"))
+			return ((BigDecimal) obj).doubleValue();
+		else if (fieldName.equalsIgnoreCase("breakdown"))
+			return ((BigDecimal) obj).doubleValue();
+		else if (fieldName.equalsIgnoreCase("powerFactor"))
+			return ((Double) obj);
+		else if (fieldName.equalsIgnoreCase("maximumDemand"))
+			return ((BigDecimal) obj).doubleValue();
+		else if (fieldName.equalsIgnoreCase("tappingTemperature"))
+			return ((Double) obj);
+		else
+			return new Double(-1);
+
+	}
+
+	private JSONArray getCategories(List<Map<Date, Double>> details) throws JSONException {
+		JSONArray array = new JSONArray();
+		JSONObject obj = new JSONObject();
+		JSONArray cat = new JSONArray();
+		for (Map.Entry<Date, Double> entry : details.get(0).entrySet()) {
+			JSONObject temp = new JSONObject();
+			temp.put("label", entry.getKey());
+			cat.put(temp);
+		}
+		obj.put("category", cat);
+		array.put(obj);
+		return array;
+
+	}
+
+	private JSONArray getdataset(List<Map<Date, Double>> details, String[] fields) throws JSONException {
+		JSONArray array = new JSONArray();
+
+		for (int i = 0; i < details.size(); i++) {
+			JSONObject obj = new JSONObject();
+			JSONArray cat = new JSONArray();
+			for (Map.Entry<Date, Double> entry : details.get(i).entrySet()) {
+				JSONObject temp = new JSONObject();
+				temp.put("value", entry.getValue());
+				cat.put(temp);
+			}
+			obj.put("seriesname", fields[i]);
+			obj.put("data", cat);
+			array.put(obj);
+		}
+		return array;
+
+	}
+
+	public JSONObject getGraphData(List<Map<Date, Double>> details, String[] fields) throws JSONException {
+		JSONObject obj = new JSONObject();
+		obj.put("categories", getCategories(details));
+		obj.put("dataset", getdataset(details, fields));
+		return obj;
 	}
 
 }

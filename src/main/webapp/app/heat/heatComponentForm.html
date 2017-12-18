@@ -1,3 +1,4 @@
+
 <div class="row">
     <div class="col-md-6">
         <span class="text-center"><h3>New  Component</h3></span>
@@ -13,10 +14,10 @@
                 <tbody>
                     <tr>
                         <td>
-                            <input type="text" ng-model="vm.items.department"  />
+                            <input type="text" ng-model="vm.items.department" />
                         </td>
                         <td>
-                            <input type="text" ng-model="vm.items.component"  />
+                            <input type="text" ng-model="vm.items.component" />
                         </td>
                         <td>
                             <input type="text" ng-model="vm.items.subComponent" />
@@ -31,8 +32,7 @@
         <hr />
     </div>
     <div class="col-md-8">
-                <span class="text-center"><h3>Update Component</h3></span>
-
+        <span class="text-center"><h3>Update Component</h3></span>
         <form ng-submit="vm.update()">
             <table class="table table-condensed table-bordered table-striped">
                 <thead>
@@ -46,16 +46,16 @@
                 <tbody>
                     <tr>
                         <td>
-                            <input type="text" ng-model="vm.updateitems.id"  />
+                            <input type="text" ng-model="vm.updateitems.id" />
                         </td>
                         <td>
-                            <input type="text" ng-model="vm.updateitems.department"  />
+                            <input type="text" ng-model="vm.updateitems.department" />
                         </td>
                         <td>
-                            <input type="text" ng-model="vm.updateitems.component"  />
+                            <input type="text" ng-model="vm.updateitems.component" />
                         </td>
                         <td>
-                            <input type="text" ng-model="vm.updateitems.subComponent"  />
+                            <input type="text" ng-model="vm.updateitems.subComponent" />
                         </td>
                     </tr>
                 </tbody>
@@ -70,18 +70,17 @@
 <br>
 <br>
 <div class="row">
-            <span class="text-center"><h3>Component List</h3></span>
-
+    <span class="text-center"><h3>Component List</h3></span>
     <div class="col-md-12">
         <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped">
             <tr ng-repeat="item in $data">
-                <td data-title="'Scrap Id'" header-class="'bg-primary'"  sortable="'id'">
+                <td data-title="'Scrap Id'" header-class="'bg-primary'" sortable="'id'">
                     {{item.id}}</td>
                 <td data-title="'Department'" header-class="'bg-primary'" sortable="'department'">
                     {{item.department}}</td>
-                <td data-title="'Scrap Type'"  header-class="'bg-primary'"  sortable="'component'">
+                <td data-title="'Scrap Type'" header-class="'bg-primary'" sortable="'component'">
                     {{item.component}}</td>
-                <td data-title="'Scrap Type'"  header-class="'bg-primary'"  sortable="'subComponent'">
+                <td data-title="'Scrap Type'" header-class="'bg-primary'" sortable="'subComponent'">
                     {{item.subComponent}}</td>
             </tr>
         </table>

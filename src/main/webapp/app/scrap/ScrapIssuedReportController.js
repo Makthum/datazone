@@ -5,9 +5,9 @@
         .module('jprApp')
         .controller('ScrapIssuedReportController', ScrapIssuedReportController);
 
-    ScrapIssuedReportController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', 'NgTableParams', '$filter', "$stateParams"];
+    ScrapIssuedReportController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', 'NgTableParams', '$filter', "$stateParams",'AlertService'];
 
-    function ScrapIssuedReportController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter, $stateParams) {
+    function ScrapIssuedReportController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter, $stateParams,AlertService) {
         var vm = this;
         vm.fromDate = $stateParams.fromDate;
         vm.toDate = $stateParams.fromDate;
@@ -73,8 +73,8 @@
                         params.total(response.data.length);
                         return vm.tabledata;
                     }, function myError(response) {
-                        vm.error = response.data.detail;
-                        vm.status = response.statusText;
+                        AlertService.error(response.data.detail);
+                        AlertService.error(response.statusText);
                     });
                 }
             });
@@ -111,7 +111,7 @@
 
         function getScraplogs(page, count) {
             vm.error = "";
-            vm.status= "";
+            vm.status = "";
             var dataset = {
                 'fromDate': vm.fromDate,
                 'toDate': vm.toDate,
@@ -127,14 +127,14 @@
 
         vm.load = function() {
             vm.error = "";
-            vm.status= "";
+            vm.status = "";
             vm.disableLoad = false;
             vm.tableParams.reload();
         }
 
         vm.download = function() {
             vm.error = "";
-            vm.status= "";
+            vm.status = "";
             var dataset = {
                 'fromDate': vm.fromDate,
                 'toDate': vm.toDate,
@@ -153,13 +153,13 @@
                     anchor.attr({
                         href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data.data),
                         target: '_blank',
-                        download: 'report.csv'
+                        download: 'issuedReport.csv'
                     })[0].click();
 
                 },
                 function myError(response) {
-                    vm.error = response.data.detail;
-                    vm.status = response.statusText;
+                    AlertService.error(response.data.detail);
+                    AlertService.error(response.statusText);
                 });
         }
     }

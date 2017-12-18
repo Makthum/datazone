@@ -15,6 +15,7 @@ public class HeatDetailsDTO {
 	private int unitPerTon;
 	private int tappingTime;
 	private double powerFactor;
+	private double siMnUtilization;
 
 	public int getUnitConsumed() {
 		return unitConsumed;
@@ -140,5 +141,15 @@ public class HeatDetailsDTO {
 	public void setTappingTemp(int tappingTemp) {
 		this.tappingTemp = tappingTemp;
 	}
+
+	public double getSiMnUtilization() {
+		return siMnUtilization;
+	}
+
+	public void setSiMnUtilization(double siMnUtilization) {
+		this.siMnUtilization = siMnUtilization;
+	}
+	
+	
 
 }

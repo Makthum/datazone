@@ -1,5 +1,6 @@
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,16 +22,17 @@
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="manifest" href="manifest.webapp" />
 </head>
+
 <body ng-app="jprApp" ng-strict-di>
     <!--[if lt IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <div ui-view="navbar" ng-cloak></div>
+    <jhi-alert></jhi-alert>
     <div class="container">
         <div ui-view="content">
             <!-- Angular views -->
         </div>
-
     </div>
     <noscript>
         <h1>You must enable javascript to view this page.</h1>
@@ -53,12 +55,12 @@
         r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
         ga('create','UA-XXXXX-X');ga('send','pageview');
     </script>-->
-
     <!-- build:js app/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/json3/lib/json3.js"></script>
     <script src="bower_components/messageformat/messageformat.js"></script>
+    <script src="bower_components/fusioncharts/fusioncharts.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -73,9 +75,10 @@
     <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
     <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
     <script src="bower_components/ng-table/dist/ng-table.js"></script>
+    <script src="bower_components/angular-fusioncharts/dist/angular-fusioncharts.min.js"></script>
+    <script src="bower_components/angular-sweetalert/SweetAlert.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
-
     <!-- build:js app/app.js  -->
     <!-- inject:js -->
     <script src="app/app.module.js"></script>
@@ -103,6 +106,8 @@
     <script src="app/scrap/scrap.state.js"></script>
     <script src="app/scrap/createScrapController.js"></script>
     <script src="app/report/report.state.js"></script>
+    <script src="app/report/monthlyScrapReceivedController.js"></script>
+    <script src="app/report/monthlyScrapIssuedController.js"></script>
     <script src="app/report/issueReportController.js"></script>
     <script src="app/report/dailyReportController.js"></script>
     <script src="app/layouts/navbar/navbar.controller.js"></script>
@@ -192,6 +197,6 @@
     <script src="app/account/account.state.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
-
 </body>
+
 </html>

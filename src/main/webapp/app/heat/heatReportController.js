@@ -5,9 +5,9 @@
         .module('jprApp')
         .controller('heatReportController', heatReportController);
 
-    heatReportController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', 'NgTableParams', '$filter', '$stateParams'];
+    heatReportController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', 'NgTableParams', '$filter', '$stateParams','AlertService'];
 
-    function heatReportController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter, $stateParams) {
+    function heatReportController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter, $stateParams,AlertService) {
         var vm = this;
 
         vm.fromDate = $stateParams.fromDate;
@@ -75,7 +75,7 @@
                         return vm.tabledata;
                     }, function myError(response) {
                         vm.error = response.data.detail;
-                        vm.status = response.statusText;
+                        AlertService.error(response.statusText);
                     });
                 }
             });
@@ -137,7 +137,7 @@
             var dataset = {
                 'fromDate': vm.fromDate,
                 'toDate': vm.toDate,
-                'page': 1,
+                'page': 0,
                 'size': 1000
             };
             $http({
@@ -152,7 +152,7 @@
                     anchor.attr({
                         href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data.data),
                         target: '_blank',
-                        download: 'filename.csv'
+                        download: 'heatReport.csv'
                     })[0].click();
 
                 },

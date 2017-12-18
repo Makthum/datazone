@@ -5,9 +5,9 @@
         .module('jprApp')
         .controller('ScrapReceivedLogsController', ScrapReceivedLogsController);
 
-    ScrapReceivedLogsController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', 'NgTableParams', '$filter'];
+    ScrapReceivedLogsController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', 'NgTableParams', '$filter','AlertService'];
 
-    function ScrapReceivedLogsController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter) {
+    function ScrapReceivedLogsController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter,AlertService) {
         var vm = this;
 
         vm.account = null;

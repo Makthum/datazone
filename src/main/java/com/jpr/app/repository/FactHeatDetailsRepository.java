@@ -1,15 +1,11 @@
 package com.jpr.app.repository;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.Temporal;
-import org.springframework.data.repository.query.Param;
 
 import com.jpr.app.domain.FactHeatDetails;
 
@@ -23,5 +19,8 @@ public interface FactHeatDetailsRepository extends JpaRepository<FactHeatDetails
 			+ "avg(tapping_time) as AverageTappingTime," + "avg(unit_per_ton) as AvgUPT"
 			+ " from factheatdetails  t inner join (select * from dimHeat h inner join dimdate d on d.date_id = h.dim_date_on_id where d.date = ? ) x on x.id = t.dim_heat_id", nativeQuery = true)
 	List<Object[]> getDailyReport(String date);
+
+	@Query(value = "select d.date,sum(production) as production,sum(time_taken) as RunningTime,avg(unit_per_ton) as upt,sum(delay) as breakdown,avg(power_factor) as powerFactor,avg(maximum_operating_power) as maximumDemand,avg(tapping_temp) as tappingTemperature from factheatdetails t, dimheat h, dimdate d where t.dim_heat_id=h.id and h.dim_date_on_id = d.date_id and  d.date >= ? and d.date <= ? group by d.date ", nativeQuery = true)
+	List<Object[]> getProduction(String fdate, String tdate);
 
 }

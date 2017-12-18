@@ -11,11 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jpr.app.domain.DimScrap;
+import com.jpr.app.domain.FactScrapIssued;
+import com.jpr.app.domain.FactScrapRecv;
 import com.jpr.app.domain.RawMaterialCost;
 import com.jpr.app.repository.FactHeatDetailsRepository;
 import com.jpr.app.repository.RawMaterialCostRepository;
 import com.jpr.app.service.dto.CompositionCost;
 import com.jpr.app.service.dto.DailyReportDTO;
+import com.jpr.app.service.dto.MonthlyScrapReportDTO;
 
 @Service
 public class ReportService {
@@ -28,6 +31,9 @@ public class ReportService {
 
 	@Autowired
 	RawMaterialCostRepository costRepo;
+
+	@Autowired
+	CSVService csvService;
 
 	public DailyReportDTO getDailyReport(Date date) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -73,5 +79,43 @@ public class ReportService {
 		}
 		return new Double(0);
 
+	}
+
+	public List<MonthlyScrapReportDTO> getMonthlyReceivedReport(Date fromDate, Date toDate, int page, int size) {
+		List<FactScrapRecv> received = scrapService.getScrapReceivedLogs(fromDate, toDate, page, size);
+		List<MonthlyScrapReportDTO> result = new ArrayList<>();
+		for (FactScrapRecv entry : received) {
+			MonthlyScrapReportDTO temp = new MonthlyScrapReportDTO();
+			temp.setId(entry.getDimScrap().getId());
+			temp.setName(entry.getDimScrap().getName());
+			if (result.contains(temp)) {
+				temp = result.get(result.indexOf(temp));
+				temp.setQuantity(temp.getQuantity() + entry.getQuantity());
+			} else {
+				temp.setQuantity(entry.getQuantity());
+				result.add(temp);
+			}
+
+		}
+		return result;
+	}
+
+	public List<MonthlyScrapReportDTO> getMonthlyIssuedReport(Date fromDate, Date toDate, int page, int size) {
+		List<FactScrapIssued> received = scrapService.getScrapIssuedLogs(fromDate, toDate, page, size);
+		List<MonthlyScrapReportDTO> result = new ArrayList<>();
+		for (FactScrapIssued entry : received) {
+			MonthlyScrapReportDTO temp = new MonthlyScrapReportDTO();
+			temp.setId(entry.getDimScrap().getId());
+			temp.setName(entry.getDimScrap().getName());
+			if (result.contains(temp)) {
+				temp = result.get(result.indexOf(temp));
+				temp.setQuantity(temp.getQuantity() + entry.getQuantity());
+			} else {
+				temp.setQuantity(entry.getQuantity());
+				result.add(temp);
+			}
+
+		}
+		return result;
 	}
 }

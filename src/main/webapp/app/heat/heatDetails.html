@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <span class="text-center"><h3>New Heat Detail</h3></span>
-        <form ng-submit="vm.save()">
+        <form name="heatdf" ng-submit="vm.save()">
             <table class="table table-responsive table-bordered table-striped">
                 <tbody>
                     <tr>
@@ -20,11 +20,13 @@
                         </td>
                         <th class="bg-success">delay</th>
                         <td>
-                            <input type="text" ng-model="vm.heat.delay" class="form-control" ng-required=" vm.heat.timeTaken > 150 " />
+                            <input name="delay" type="number" step="any" ng-model="vm.heat.delay" class="form-control" ng-required=" vm.heat.timeTaken > 150 && vm.heat.heatType!='Sinter'" />
+                            <span class="text-danger" ng-show="heatdf.delay.$invalid">Invalid Value</span>
                         </td>
-                        <th class="bg-success">Carbon</th>
+                        <th  class="bg-success">Carbon</th>
                         <td>
-                            <input type="text" ng-model="vm.heatmix.carbon" class="form-control" />
+                            <input name="carbon" type="number" step="any" ng-model="vm.heatmix.carbon" step="any" min=0 max=1 class="form-control" />
+                            <span class="text-danger" ng-show="heatdf.carbon.$invalid">Invalid Value</span>
                         </td>
                     </tr>
                     <tr>
@@ -34,26 +36,31 @@
                         </td>
                         <th class="bg-success">Tapping Temperature</th>
                         <td>
-                            <input type="text" ng-model="vm.heat.tappingTemp" class="form-control" ng-required="true">
+                            <input name="ttemp" type="number" step="any" ng-model="vm.heat.tappingTemp" step="any" min=1200 max=2000 class="form-control" ng-required="true">
+                            <span class="text-danger" ng-show="heatdf.ttemp.$invalid">Invalid Value</span>
                         </td>
                         <th class="bg-success">Manganese</th>
                         <td>
-                            <input type="text" ng-model="vm.heatmix.manganese" class="form-control" />
+                            <input name="mn" type="number" step="any" step="any" min=0 max=1 ng-model="vm.heatmix.manganese" class="form-control" />
+                            <span class="text-danger" ng-show="heatdf.mn.$invalid">Invalid Time</span>
                         </td>
                     </tr>
                     </tr>
                     <tr>
                         <th class="bg-success">furnaceOff</th>
                         <td>
-                            <div uib-timepicker ng-change="vm.furnaceOffChanged()" ng-model="vm.furnaceOff" show-spinners="false" show-meridian="false"></div>
+                            <div name="fOff" uib-timepicker ng-change="vm.furnaceOffChanged()" ng-model="vm.furnaceOff" min="vm.furnaceOn" show-spinners="false" show-meridian="false"></div>
+                            <span class="text-danger" ng-show="heatdf.fOff.$invalid">Invalid Time</span>
                         </td>
                         <th class="bg-success">Tapping Time</th>
                         <td>
-                            <input type="text" ng-model="vm.heat.tappingTime" class="form-control" ng-required="true">
+                            <input name="ttime" type="number" step="any" step="any" min=0 max=100 ng-model="vm.heat.tappingTime" class="form-control" ng-required="true">
+                            <span class="text-danger" ng-show="heatdf.ttime.$invalid">Invalid Value</span>
                         </td>
                         <th class="bg-success">Silicon</th>
                         <td>
-                            <input type="text" ng-model="vm.heatmix.silicon" class="form-control" />
+                            <input name="silicon" type="number" step="any" step="any" min=0 max=1 ng-model="vm.heatmix.silicon" class="form-control" />
+                            <span class="text-danger" ng-show="heatdf.silicon.$invalid">Invalid Value</span>
                         </td>
                     </tr>
                     <tr>
@@ -75,53 +82,62 @@
                         </td>
                         <th class="bg-success">Maximum Demand</th>
                         <td>
-                            <input type="text" ng-model="vm.heat.maximumOperatingPower" class="form-control" ng-required="true">
+                            <input type="number" step="any" ng-model="vm.heat.maximumOperatingPower" class="form-control" ng-required="true">
                         </td>
                         <th class="bg-success">Sulphur</th>
                         <td>
-                            <input type="text" ng-model="vm.heatmix.sulphur" class="form-control" />
+                            <input name="sulphur" type="number" step="any" step="any" min=0 max=1  ng-model="vm.heatmix.sulphur" class="form-control" />
+                            <span class="text-danger" ng-show="heatdf.sulphur.$invalid">Invalid Value</span>
                         </td>
                     </tr>
                     <tr>
                         <th class="bg-success">Slag</th>
                         <td>
-                            <input type="text" ng-model="vm.heat.slag" class="form-control" ng-required="true">
+                            <input name="slag" type="number" step="any" ng-model="vm.heat.slag" step="any" min=0 max=5 class="form-control" ng-required="true">
+                            <span class="text-danger" ng-show="heatdf.slag.$invalid">Invalid Value</span>
                         </td>
                         <th class="bg-success">Unit Per Ton</th>
                         <td>
-                            <input type="text" ng-model="vm.heat.unitPerTon" class="form-control" ng-required="true">
+                            <input type="number" name="upt" step="any" ng-model="vm.heat.unitPerTon" step="any" min=400 max=2000 class="form-control" ng-required="true">
+                            <span class="text-danger" ng-show="heatdf.upt.$invalid">Invalid Value</span>
                         </td>
                         <th class="bg-success">Phosphorus</th>
                         <td>
-                            <input type="text" ng-model="vm.heatmix.phosphorous" class="form-control" />
+                            <input name="phos" type="number" step="any" step="any" min=0 max=1 ng-model="vm.heatmix.phosphorous" class="form-control" />
+                            <span class="text-danger" ng-show="heatdf.phos.$invalid">Invalid Value</span>
                         </td>
                     </tr>
                     <tr>
                         <th class="bg-success">Production </th>
                         <td>
-                            <input type="text" ng-model="vm.heat.production" class="form-control" ng-required="true">
+                            <input name="prod" type="number" step="any" ng-model="vm.heat.production" step="any" min=0 max=40 class="form-control" ng-required="true">
+                            <span class="text-danger" ng-show="heatdf.prod.$invalid">Invalid Value</span>
                         </td>
                         <th class="bg-success">Units Consumed</th>
                         <td>
-                            <input type="text" ng-model="vm.heat.unitConsumed" class="form-control" ng-required="true">
+                            <input type="number" step="any" step="any" ng-model="vm.heat.unitConsumed" class="form-control" ng-required="true">
                         </td>
                         <th class="bg-success">Silico Manganese</th>
                         <td>
-                            <input type="text" ng-model="vm.heatmix.silicoManganese" class="form-control" />
+                            <input name="simn" type="number" step="any" step="any" min=0 max=1 ng-model="vm.heatmix.silicoManganese" class="form-control" />
+                            <span class="text-danger" ng-show="heatdf.simn.$invalid">Invalid Value</span>
                         </td>
                     </tr>
                     <tr>
                         <th class="bg-success">TimeTaken </th>
                         <td>
-                            <input type="text" ng-model="vm.heat.timeTaken" class="form-control" ng-required="true" />
+                            <input class="ttaken" type="number" step="any" step="any" min=0 max=1000 ng-model="vm.heat.timeTaken" class="form-control" ng-required="true" />
+                            <span class="text-danger" ng-show="heatdf.ttaken.$invalid">Invalid Value</span>
                         </td>
                         <th class="bg-success">Power Factor</th>
                         <td>
-                            <input type="text" ng-model="vm.heat.powerFactor" class="form-control" ng-required="true">
+                            <input name="pf" type="number" step="any" step="any" min=0 max=1 ng-model="vm.heat.powerFactor" class="form-control" ng-required="true">
+                            <span class="text-danger" ng-show="heatdf.pf.$invalid">Invalid Value</span>
                         </td>
                         <th class="bg-success">Ferro Manganese</th>
                         <td>
-                            <input type="text" ng-model="vm.heatmix.ferroManganese" class="form-control" />
+                            <input name="femn" ttype="number" step="any" step="any" min=0 max=1 ng-model="vm.heatmix.ferroManganese" class="form-control" />
+                            <span class="text-danger" ng-show="heatdf.femn.$invalid">Invalid Value</span>
                         </td>
                     </tr>
                     <tr>
@@ -140,7 +156,13 @@
                         </td>
                         <th class="bg-success">Aluminium </th>
                             <td>
-                                <input type="text" ng-model="vm.heatmix.aluminium" class="form-control" />
+                                <input name="aluminium" type="number" step="any" min=0 max=1 ng-model="vm.heatmix.aluminium" class="form-control" />
+                                <span class="text-danger" ng-show="heatdf.aluminium.$invalid">Invalid Value</span>
+                            </td>
+                        <th class="bg-success">Silico Manganese Utilization </th>
+                            <td>
+                                <input name="siMnUtilization" type="number" step="any" min=0 max=400 ng-model="vm.heat.siMnUtilization" class="form-control" />
+                                <span class="text-danger" ng-show="heatdf.siMnUtilization.$invalid">Invalid Value</span>
                             </td>
                     </tr>
                 </tbody>

@@ -5,9 +5,9 @@
         .module('jprApp')
         .controller('heatController', heatController);
 
-    heatController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', "NgTableParams", "$filter"];
+    heatController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', "NgTableParams", "$filter","AlertService"];
 
-    function heatController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter) {
+    function heatController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter,AlertService) {
         var vm = this;
 
         vm.account = null;
@@ -117,8 +117,10 @@
                     'Content-Type': 'application/json'
                 }
             }).then(function mySuccess(response) {
+                AlertService.success(response.statusText);
                 reload();
             }, function myError(response) {
+               AlertService.error(response.statusText);
                 reload();
             });
         };

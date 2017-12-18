@@ -38,6 +38,40 @@
                     controllerAs: 'vm'
                 }
             }
+        }).state('monthlyReceivedReport', {
+            parent: 'app',
+            url: '/monthlyReceivedReport',
+            params : {
+                fromDate: null,
+                toDate: null
+            },
+            data: {
+                authorities: []
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/report/monthlyScrapReceived.html',
+                    controller: 'monthlyScrapReceivedController',
+                    controllerAs: 'vm'
+                }
+            }
+        }).state('monthlyIssuedReport', {
+            parent: 'app',
+            url: '/monthlyIssuedReport',
+            params : {
+                fromDate: null,
+                toDate: null
+            },
+            data: {
+                authorities: []
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/report/monthlyScrapIssued.html',
+                    controller: 'monthlyScrapIssuedController',
+                    controllerAs: 'vm'
+                }
+            }
         });
     }
 })();

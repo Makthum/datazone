@@ -5,9 +5,9 @@
         .module('jprApp')
         .controller('heatComponentController', heatComponentController);
 
-    heatComponentController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', "NgTableParams", "$filter"];
+    heatComponentController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', "NgTableParams", "$filter",'AlertService'];
 
-    function heatComponentController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter) {
+    function heatComponentController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter,AlertService) {
         var vm = this;
 
         vm.account = null;
@@ -64,8 +64,10 @@
                     'Content-Type': 'application/json'
                 }
             }).then(function mySuccess(response) {
+                AlertService.success(response.statusText);
                 reload();
             }, function myError(response) {
+                AlertService.error(esponse.statusText);
                 reload();
             });
         };
@@ -86,11 +88,11 @@
                 }
             }).then(function mySuccess(response) {
                 vm.updateResult = response.data;
-                vm.status = response.statusText;
+                AlertService.success(response.statusText);
                 reload();
             }, function myError(response) {
                 vm.error = response.data.detail;
-                vm.status = response.statusText;
+                AlertService.error(response.statusText);
                 reload();
             });
         };

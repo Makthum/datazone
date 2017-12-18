@@ -5,9 +5,9 @@
         .module('jprApp')
         .controller('scrapReceivedController', scrapReceivedController);
 
-    scrapReceivedController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', "NgTableParams", "$filter"];
+    scrapReceivedController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', "NgTableParams", "$filter", 'AlertService'];
 
-    function scrapReceivedController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter) {
+    function scrapReceivedController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter, AlertService) {
         var vm = this;
 
         vm.account = null;
@@ -95,7 +95,7 @@
 
         vm.save = function() {
             vm.error = "";
-            vm.status= "";
+            vm.status = "";
             $http({
                 method: 'POST',
                 url: '/api/scrap/received',
@@ -105,10 +105,10 @@
                 }
             }).then(function mySuccess(response) {
                 vm.error = response.data.detail;
-                vm.status = response.statusText;
+                AlertService.success(response.statusText);
             }, function myError(response) {
-                vm.error = response.data.detail;
-                vm.status = response.statusText;
+                AlertService.error(response.data.detail);
+                AlertService.error(response.statusText);
             });
 
 
@@ -120,7 +120,7 @@
 
         function getScrapTypes() {
             vm.error = "";
-            vm.status= "";
+            vm.status = "";
             $http({
                     method: 'GET',
                     url: '/api/scrap/types',
@@ -130,8 +130,8 @@
                     vm.error = response.data.detail;
                     vm.status = response.statusText;
                 }, function myError(response) {
-                    vm.error = response.data.detail;
-                    vm.status = response.statusText;
+                    AlertService.error(response.data.detail);
+                    AlertService.error(response.statusText);
                 });
         };
     }

@@ -5,9 +5,9 @@
         .module('jprApp')
         .controller('issueController', issueController);
 
-    issueController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', "NgTableParams", "$filter"];
+    issueController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', "NgTableParams", "$filter",'AlertService'];
 
-    function issueController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter) {
+    function issueController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter,AlertService) {
         var vm = this;
 
         vm.account = null;
@@ -127,11 +127,11 @@
                 }
             }).then(function mySuccess(response) {
                 vm.error = response.data.detail;
-                vm.status = response.statusText;
+                AlertService.success(response.statusText);
                 reload();
             }, function myError(response) {
                 vm.error = response.data.detail;
-                vm.status = response.statusText;
+                AlertService.error(response.statusText);
                 reload();
             });
 

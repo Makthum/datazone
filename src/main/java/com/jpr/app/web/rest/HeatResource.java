@@ -1,6 +1,9 @@
 package com.jpr.app.web.rest;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +25,7 @@ import com.jpr.app.domain.FactHeatMixture;
 import com.jpr.app.domain.FactHeatRawMaterialMixture;
 import com.jpr.app.repository.DimDateRepository;
 import com.jpr.app.security.AuthoritiesConstants;
+import com.jpr.app.service.CSVService;
 import com.jpr.app.service.ComponentService;
 import com.jpr.app.service.HeatService;
 import com.jpr.app.service.IssueService;
@@ -44,6 +48,9 @@ public class HeatResource {
 
 	@Autowired
 	ComponentService compoService;
+	
+	@Autowired
+	CSVService csvService;
 
 	@PostMapping("/heats")
 	@Timed
@@ -126,6 +133,15 @@ public class HeatResource {
 		List<FactHeatDetails> result = heatService.getHeatDetails(details.getFromDate(), details.getToDate(),
 				details.getPage(), details.getSize());
 		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@PostMapping("/heatdetails/reportdownload")
+	@Timed
+	@Secured(AuthoritiesConstants.USER)
+	public void downloadHeatDetails(@RequestBody RcLogDTO details,HttpServletResponse response) throws IOException {
+		List<FactHeatDetails> result = heatService.getHeatDetails(details.getFromDate(), details.getToDate(),
+				details.getPage(), details.getSize());
+		csvService.writeAll(response.getWriter(), result, FactHeatDetails.class);
 	}
 
 	@PostMapping("/heatdetails/heatmix")

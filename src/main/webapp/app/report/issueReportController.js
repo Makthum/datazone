@@ -138,12 +138,12 @@
             var dataset = {
                 'fromDate': vm.fromDate,
                 'toDate': vm.toDate,
-                'page': 1,
+                'page': 0,
                 'size': 1000
             };
             $http({
                 method: 'POST',
-                url: '/api/scrap/receivedreportdownload',
+                url: '/api/issues/reportdownload',
                 data: dataset,
                 header: {
                     'Content-type': 'text/csv'
@@ -153,7 +153,7 @@
                     anchor.attr({
                         href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data.data),
                         target: '_blank',
-                        download: 'filename.csv'
+                        download: 'issues.csv'
                     })[0].click();
 
                 },

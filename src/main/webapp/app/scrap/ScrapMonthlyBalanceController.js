@@ -5,9 +5,9 @@
         .module('jprApp')
         .controller('ScrapMonthlyBalanceController', ScrapMonthlyBalanceController);
 
-    ScrapMonthlyBalanceController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', 'NgTableParams', '$filter'];
+    ScrapMonthlyBalanceController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', 'NgTableParams', '$filter', 'AlertService'];
 
-    function ScrapMonthlyBalanceController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter) {
+    function ScrapMonthlyBalanceController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter, AlertService) {
         var vm = this;
 
         vm.account = null;
@@ -71,8 +71,8 @@
                         params.total(response.data.length);
                         return vm.tabledata;
                     }, function myError(response) {
-                        vm.error = response.data.detail;
-                        vm.status = response.statusText;
+                        AlertService.error(response.data.detail);
+                        AlertService.error(response.statusText);
                     });
                 }
             });
@@ -106,7 +106,7 @@
 
         function getScraplogs(page, count) {
             vm.error = "";
-            vm.status= "";
+            vm.status = "";
             var dataset = {
                 'fromDate': vm.fromDate,
                 'toDate': vm.toDate,
@@ -122,14 +122,14 @@
 
         vm.load = function() {
             vm.error = "";
-            vm.status= "";
+            vm.status = "";
             vm.disableLoad = false;
             vm.tableParams.reload();
         }
 
         vm.download = function() {
             vm.error = "";
-            vm.status= "";
+            vm.status = "";
             var dataset = {
                 'fromDate': vm.fromDate,
                 'toDate': vm.toDate,
@@ -148,13 +148,13 @@
                     anchor.attr({
                         href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data.data),
                         target: '_blank',
-                        download: 'filename.csv'
+                        download: 'monthlyBalance.csv'
                     })[0].click();
 
                 },
                 function myError(response) {
-                    vm.error = response.data.detail;
-                    vm.status = response.statusText;
+                    AlertService.error(response.data.detail);
+                    AlertService.error(response.statusText);
                 });
         }
     }
