@@ -33,6 +33,7 @@
     "commit": "964ad014d2a8a4baabdb4a4b317f9166b9a8c70e"
   },
   "_source": "https://github.com/fusioncharts/fusioncharts-dist.git",
-  "_target": "*",
-  "_originalSource": "fusioncharts"
+  "_target": "^3.12.2",
+  "_originalSource": "fusioncharts",
+  "_direct": true
 }

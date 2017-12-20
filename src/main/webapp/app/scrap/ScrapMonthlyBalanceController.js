@@ -111,7 +111,7 @@
                 'fromDate': vm.fromDate,
                 'toDate': vm.toDate,
                 'page': page - 1,
-                'size': count
+                'size': 1000
             }
             return $http({
                 method: 'POST',

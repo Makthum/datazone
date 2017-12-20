@@ -72,6 +72,23 @@
                     controllerAs: 'vm'
                 }
             }
+        }).state('customReport', {
+            parent: 'app',
+            url: '/customReport',
+            params : {
+                fromDate: null,
+                toDate: null
+            },
+            data: {
+                authorities: []
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/report/customReport.html',
+                    controller: 'customReportController',
+                    controllerAs: 'vm'
+                }
+            }
         });
     }
 })();

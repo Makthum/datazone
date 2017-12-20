@@ -18,6 +18,9 @@
             getAccount();
         });
 
+        vm.fromDate = new Date();
+        vm.toDate = new Date();
+
         getAccount();
 
         getReport();
@@ -43,7 +46,11 @@
 
 
         vm.open1 = function() {
-            vm.dateOpened = true;
+            vm.dateOpened1 = true;
+        };
+
+         vm.open2 = function() {
+            vm.dateOpened2 = true;
         };
 
         vm.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
@@ -62,12 +69,18 @@
 
 
         function getReport() {
+            var dataset = {
+                'fromDate': vm.fromDate,
+                'toDate': vm.toDate,
+                'page': 0,
+                'size': 1000
+            };
             vm.error = "";
             vm.status= "";
             $http({
                 method: 'POST',
                 url: '/api/reports/daily',
-                data: angular.toJson(vm.date),
+                data: dataset,
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -83,7 +96,7 @@
             $http({
                 method: 'POST',
                 url: '/api/reports/daily/composition',
-                data: angular.toJson(vm.date),
+                data: dataset,
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -99,7 +112,7 @@
             $http({
                 method: 'POST',
                 url: '/api/reports/daily/cost',
-                data: angular.toJson(vm.date),
+                data: dataset,
                 headers: {
                     'Content-Type': 'application/json'
                 }

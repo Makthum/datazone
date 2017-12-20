@@ -10,6 +10,6 @@ import com.jpr.app.domain.RawMaterialCostPk;
 
 public interface RawMaterialCostRepository extends JpaRepository<RawMaterialCost, RawMaterialCostPk> {
 
-	List<RawMaterialCost> findByDimDateDate(Date date);
+	List<RawMaterialCost> findByDimDateDateBetween(Date fDate, Date tDate);
 
 }

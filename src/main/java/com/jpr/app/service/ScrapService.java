@@ -216,8 +216,8 @@ public class ScrapService {
 		return result;
 	}
 
-	public Map<String, Double> getComposition(Date date) {
-		List<FactScrapIssued> issued = factScrapIssuedRepo.findByDimDateDate(date);
+	public Map<String, Double> getComposition(Date fDate,Date tDate) {
+		List<FactScrapIssued> issued = factScrapIssuedRepo.findByDimDateDateBetween(fDate,tDate);
 		HashMap<String, Double> result = new HashMap<>();
 		int total = 0;
 		for (FactScrapIssued scrap : issued) {
@@ -233,8 +233,8 @@ public class ScrapService {
 
 	}
 
-	public Map<DimScrap, Double> getCompositionByScrap(Date date) {
-		List<FactScrapIssued> issued = factScrapIssuedRepo.findByDimDateDate(date);
+	public Map<DimScrap, Double> getCompositionByScrap(Date fDate, Date toDate) {
+		List<FactScrapIssued> issued = factScrapIssuedRepo.findByDimDateDateBetween(fDate, toDate);
 		HashMap<DimScrap, Double> result = new HashMap<>();
 		for (FactScrapIssued scrap : issued) {
 			result.put(scrap.getDimScrap(), new Double(scrap.getQuantity()));

@@ -11,7 +11,7 @@
         var vm = this;
 
         vm.fromDate = $stateParams.fromDate;
-        vm.toDate = $stateParams.fromDate;
+        vm.toDate = $stateParams.toDate;
 
         vm.account = null;
         vm.isAuthenticated = null;
@@ -64,8 +64,10 @@
             {
                 getData: function(params) {
                     //code to fetch data that matches the params values EG: 
-                    if (vm.disableLoad)
+                    if (vm.disableLoad){
+                        params.total(0);
                         return;
+                    }
                     return getScraplogs(params.page(), params.count()).then(function mySuccess(response) {
                         vm.tabledata = response.data;
                         vm.tabledata = params.sorting() ? $filter('orderBy')(vm.tabledata, params.orderBy()) : vm.tabledata;
@@ -115,7 +117,7 @@
                 'fromDate': vm.fromDate,
                 'toDate': vm.toDate,
                 'page': page - 1,
-                'size': count
+                'size': 1000
             }
             return $http({
                 method: 'POST',

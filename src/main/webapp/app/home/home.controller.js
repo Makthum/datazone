@@ -36,10 +36,12 @@
         vm.upt={};
         vm.breakdown={};
         vm.maximumDemand={};
+        vm.powerfactor ={};
 
         var chart = {
             "caption": "Production Vs Running Time",
             "plotgradientcolor": "",
+            "outputdateformat": "dd",
             "bgcolor": "FFFFFF",
             "showalternatehgridcolor": "0",
             "divlinecolor": "CCCCCC",
@@ -58,11 +60,12 @@
             "showborder": "0"
         };
 
-        
+
         vm.runningTime.chart= angular.copy(chart);
         vm.upt.chart=angular.copy(chart);
         vm.breakdown.chart= angular.copy(chart);
         vm.maximumDemand.chart= angular.copy(chart);
+        vm.powerfactor.chart= angular.copy(chart);
 
 
 
@@ -119,6 +122,19 @@
                     vm.maximumDemand.dataset = response.data.dataset;
                     vm.maximumDemand.categories = response.data.categories;
                     vm.maximumDemand.chart.caption = "Production Vs Operating Power";
+                }, function myError(response) {
+                    vm.error = response.data.detail;
+                    vm.status = response.statusText;
+                });
+                $http({
+                    method: 'GET',
+                    url: '/api/graphs/monthly',
+                    params: { 'fields': ['production', 'powerFactor'] }
+                })
+                .then(function mySuccess(response) {
+                    vm.powerfactor.dataset = response.data.dataset;
+                    vm.powerfactor.categories = response.data.categories;
+                    vm.powerfactor.chart.caption = "Production Vs Power Factor";
                 }, function myError(response) {
                     vm.error = response.data.detail;
                     vm.status = response.statusText;

@@ -1,13 +1,17 @@
 package com.jpr.app.service;
 
 import java.math.BigDecimal;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.jpr.app.domain.DimScrap;
@@ -19,6 +23,8 @@ import com.jpr.app.repository.RawMaterialCostRepository;
 import com.jpr.app.service.dto.CompositionCost;
 import com.jpr.app.service.dto.DailyReportDTO;
 import com.jpr.app.service.dto.MonthlyScrapReportDTO;
+
+import net.minidev.json.JSONObject;
 
 @Service
 public class ReportService {
@@ -35,10 +41,14 @@ public class ReportService {
 	@Autowired
 	CSVService csvService;
 
-	public DailyReportDTO getDailyReport(Date date) {
+	@Autowired
+	JdbcTemplate template;
+
+	public DailyReportDTO getDailyReport(Date fromDate, Date toDate) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		String dateValue = format.format(date);
-		Object[] temp = detailsRepo.getDailyReport(dateValue).get(0);
+		String fDate = format.format(fromDate);
+		String tDate = format.format(toDate);
+		Object[] temp = detailsRepo.getDailyReport(fDate, tDate).get(0);
 		if (temp[0] == null) {
 			return null;
 		}
@@ -55,9 +65,9 @@ public class ReportService {
 		return result;
 	}
 
-	public List<CompositionCost> getCostComposition(Date date) {
-		Map<DimScrap, Double> result = scrapService.getCompositionByScrap(date);
-		List<RawMaterialCost> costs = costRepo.findByDimDateDate(date);
+	public List<CompositionCost> getCostComposition(Date fromDate, Date toDate) {
+		Map<DimScrap, Double> result = scrapService.getCompositionByScrap(fromDate, toDate);
+		List<RawMaterialCost> costs = costRepo.findByDimDateDateBetween(fromDate, toDate);
 		List<CompositionCost> price = new ArrayList<>();
 		for (Map.Entry<DimScrap, Double> entry : result.entrySet()) {
 			CompositionCost temp = new CompositionCost();
@@ -117,5 +127,53 @@ public class ReportService {
 
 		}
 		return result;
+	}
+
+	public JSONArray customReport(String query) {
+		List<Map<String, Object>> set = template.queryForList(query);
+		JSONArray array = new JSONArray();
+		for (Map<String, Object> entry : set) {
+			array.put(toJson(entry));
+		}
+		return array;
+	}
+
+	public List<Map<String, Object>> downloadCustomReport(String query) {
+		List<Map<String, Object>> set = template.queryForList(query);
+		return set;
+	}
+
+	private JSONObject toJson(Map<String, Object> map) {
+		JSONObject jsonObject = new JSONObject();
+
+		for (String key : map.keySet()) {
+
+			Object obj = map.get(key);
+			if (obj instanceof Map) {
+				jsonObject.put(key, toJson((Map) obj));
+			} else if (obj instanceof List) {
+				jsonObject.put(key, toJson((List) obj));
+			} else {
+				jsonObject.put(key, map.get(key));
+			}
+		}
+
+		return jsonObject;
+	}
+
+	private JSONArray toJson(List<Object> list) {
+		JSONArray jsonArray = new JSONArray();
+
+		for (Object obj : list) {
+			if (obj instanceof Map) {
+				jsonArray.put(toJson((Map) obj));
+			} else if (obj instanceof List) {
+				jsonArray.put(toJson((List) obj));
+			} else {
+				jsonArray.put(obj);
+			}
+		}
+
+		return jsonArray;
 	}
 }

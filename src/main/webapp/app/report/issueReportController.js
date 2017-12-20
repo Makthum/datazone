@@ -10,7 +10,7 @@
     function issueReportController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter, $stateParams) {
         var vm = this;
         vm.fromDate = $stateParams.fromDate;
-        vm.toDate = $stateParams.fromDate;
+        vm.toDate = $stateParams.toDate;
         vm.account = null;
         vm.isAuthenticated = null;
         vm.login = LoginService.open;
@@ -116,7 +116,7 @@
                 'fromDate': vm.fromDate,
                 'toDate': vm.toDate,
                 'page': page - 1,
-                'size': count
+                'size': 1000
             }
             return $http({
                 method: 'POST',

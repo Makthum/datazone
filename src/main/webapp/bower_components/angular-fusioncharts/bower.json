@@ -22,7 +22,8 @@
   },
   "location": "",
   "dependencies": {
-    "angular": "v1.2.12"
+    "angular": "v1.2.12",
+    "fusioncharts" : "latest"
   },
   "devDependencies": {
     "jquery": "~1.11.0",

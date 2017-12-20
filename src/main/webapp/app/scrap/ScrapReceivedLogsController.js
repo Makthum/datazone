@@ -5,9 +5,9 @@
         .module('jprApp')
         .controller('ScrapReceivedLogsController', ScrapReceivedLogsController);
 
-    ScrapReceivedLogsController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', 'NgTableParams', '$filter','AlertService'];
+    ScrapReceivedLogsController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', 'NgTableParams', '$filter', 'AlertService'];
 
-    function ScrapReceivedLogsController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter,AlertService) {
+    function ScrapReceivedLogsController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter, AlertService) {
         var vm = this;
 
         vm.account = null;
@@ -72,8 +72,8 @@
                         vm.status = response.statusText;
                         return vm.tabledata;
                     }, function myError(response) {
-                         vm.error = response.data.detail;
- vm.status = response.statusText;
+                        AlertService.error(response.data.detail);
+                        AlertService.error(response.statusText);
 
                     });
                 }
@@ -108,12 +108,12 @@
 
         function getScraplogs(page, count) {
             vm.error = "";
-            vm.status= "";
+            vm.status = "";
             var dataset = {
                 'fromDate': vm.fromDate,
                 'toDate': vm.toDate,
-                'page': page-1,
-                'size': count
+                'page': page - 1,
+                'size': 1000
             }
             return $http({
                 method: 'POST',
@@ -124,7 +124,7 @@
 
         vm.load = function() {
             vm.error = "";
-            vm.status= "";
+            vm.status = "";
             vm.disableLoad = false;
             vm.tableParams.reload();
         }

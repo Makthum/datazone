@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.management.RuntimeErrorException;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,8 +49,8 @@ public class ReportResource {
 	@PostMapping("/reports/daily")
 	@Timed
 	@Secured(AuthoritiesConstants.USER)
-	public ResponseEntity<DailyReportDTO> createHeatDetails(@RequestBody Date date) {
-		DailyReportDTO result = reportService.getDailyReport(date);
+	public ResponseEntity<DailyReportDTO> createHeatDetails(@RequestBody RcLogDTO date) {
+		DailyReportDTO result = reportService.getDailyReport(date.getFromDate(), date.getToDate());
 		if (result == null)
 			throw new RuntimeErrorException(null, "No Records Found for the request date");
 		return new ResponseEntity<>(result, HttpStatus.OK);
@@ -59,8 +60,8 @@ public class ReportResource {
 	@PostMapping("/reports/daily/composition")
 	@Timed
 	@Secured(AuthoritiesConstants.USER)
-	public ResponseEntity<Map<String, Double>> getComposition(@RequestBody Date date) {
-		Map<String, Double> result = scrapService.getComposition(date);
+	public ResponseEntity<Map<String, Double>> getComposition(@RequestBody RcLogDTO date) {
+		Map<String, Double> result = scrapService.getComposition(date.getFromDate(), date.getToDate());
 		if (result == null)
 			throw new RuntimeErrorException(null, "No Records Found for the request date");
 		return new ResponseEntity<>(result, HttpStatus.OK);
@@ -70,8 +71,8 @@ public class ReportResource {
 	@PostMapping("/reports/daily/cost")
 	@Timed
 	@Secured(AuthoritiesConstants.USER)
-	public ResponseEntity<Map<String, Double>> getCost(@RequestBody Date date) {
-		List<CompositionCost> temp = reportService.getCostComposition(date);
+	public ResponseEntity<Map<String, Double>> getCost(@RequestBody RcLogDTO date) {
+		List<CompositionCost> temp = reportService.getCostComposition(date.getFromDate(), date.getToDate());
 		Map<String, Double> result = new HashMap<>();
 		double totalQuantity = 0;
 		double totalvalue = 0;
@@ -120,6 +121,22 @@ public class ReportResource {
 		List<MonthlyScrapReportDTO> result = reportService.getMonthlyIssuedReport(dto.getFromDate(), dto.getToDate(),
 				dto.getPage(), dto.getSize());
 		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+
+	@PostMapping("/reports/sql")
+	@Timed
+	@Secured(AuthoritiesConstants.USER)
+	public ResponseEntity<String> customReport(@RequestBody String dto) {
+		JSONArray result = reportService.customReport(dto);
+		return new ResponseEntity<>(result.toString(), HttpStatus.OK);
+	}
+
+	@PostMapping("/reports/download/sql")
+	@Timed
+	@Secured(AuthoritiesConstants.USER)
+	public void downloadCustomReport(@RequestBody String dto, HttpServletResponse response) throws IOException {
+		List<Map<String, Object>> result = reportService.downloadCustomReport(dto);
+		csvService.writeAll(result, response.getWriter());
 	}
 
 }

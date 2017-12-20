@@ -2,10 +2,22 @@
     <div class="col-md-5">
         <p class="input-group">
             <span class="input-group-addon">From Date</span>
-            <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.date" is-open="vm.dateOpened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" />
+            <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.fromDate" is-open="vm.dateOpened1" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" />
             <span class="input-group-btn">
                                 <button type="button" class="btn btn-default"
                                     ng-click="vm.open1()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+        </p>
+    </div>
+    <div class="col-md-5">
+        <p class="input-group">
+            <span class="input-group-addon">To Date</span>
+            <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.toDate" is-open="vm.dateOpened2" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" />
+            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                    ng-click="vm.open2()">
                                     <i class="glyphicon glyphicon-calendar"></i>
                                 </button>
                             </span>
@@ -25,7 +37,7 @@
                         Production
                     </th>
                     <td ng-class="{ 'bg-success' :vm.details.production > 250  ,'bg-danger' : vm.details.production < 250}">
-                        <a ui-sref="heatReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"> <span >{{vm.details.production | number :2}}</span>                    </a>
+                        <a ui-sref="heatReport({fromDate : vm.fromDate, toDate: vm.toDate })" ng-click="vm.collapseNavbar()"> <span >{{vm.details.production | number :2}}</span>                    </a>
                     </td>
                     <td>
                         Target
@@ -39,7 +51,7 @@
                         Total Breakdown
                     </th>
                     <td ng-class="{ 'bg bg-success' :vm.details.totalBreakdown < 0  ,'bg bg-danger' : vm.details.totalBreakdown > 0}">
-                        <a ui-sref="issueReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.totalBreakdown}}</span></a>
+                        <a ui-sref="issueReport({fromDate : vm.fromDate, toDate: vm.toDate  })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.totalBreakdown}}</span></a>
                     </td>
                     <td>
                         Target
@@ -53,7 +65,7 @@
                         Total Running Time
                     </th>
                     <td ng-class="{ 'bg bg-success' :vm.details.totalRunningTime/60 > 23  ,'bg bg-danger' : vm.details.totalBreakdown/60 < 22}">
-                        <a ui-sref="heatReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.totalRunningTime/60 | number :2}}</span> </a>
+                        <a ui-sref="heatReport({fromDate : vm.fromDate, toDate: vm.toDate  })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.totalRunningTime/60 | number :2}}</span> </a>
                     </td>
                     <td>
                         Target
@@ -67,7 +79,7 @@
                         Average UPT
                     </th>
                     <td ng-class="{ 'bg bg-success' :vm.details.averageUpt < 650  ,'bg bg-danger' : vm.details.averageUpt > 650}">
-                        <a ui-sref="heatReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.averageUpt }}</span> </a>
+                        <a ui-sref="heatReport({fromDate : vm.fromDate, toDate: vm.toDate  })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.averageUpt }}</span> </a>
                     </td>
                     <td>
                         Target
@@ -81,7 +93,7 @@
                         Power Factor
                     </th>
                     <td ng-class="{ 'bg bg-success' :vm.details.powerFactor >= .93  ,'bg bg-danger' : vm.details.powerFactor < .93}">
-                        <a ui-sref="heatReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.powerFactor | number :2}}</span> </a>
+                        <a ui-sref="heatReport({fromDate : vm.fromDate, toDate: vm.toDate  })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.powerFactor | number :2}}</span> </a>
                     </td>
                     <td>
                         Target
@@ -95,7 +107,7 @@
                         Slag
                     </th>
                     <td ng-class="{ 'bg bg-success' :vm.details.slag < vm.details.production * .09  ,'bg bg-danger' : vm.details.slag > vm.details.production * .09}">
-                        <a ui-sref="heatReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"><span>{{vm.details.slag | number :2}}</span> </a>
+                        <a ui-sref="heatReport({fromDate : vm.fromDate, toDate: vm.toDate  })" ng-click="vm.collapseNavbar()"><span>{{vm.details.slag | number :2}}</span> </a>
                     </td>
                     <td>
                         Target
@@ -109,7 +121,7 @@
                         Energy
                     </th>
                     <td ng-class="{ 'bg bg-success' :vm.details.totalUnits < vm.details.production * 650  ,'bg bg-danger' : vm.details.totalUnits > vm.details.production * 650}">
-                        <a ui-sref="heatReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.totalUnits | number :2}}</span> </a>
+                        <a ui-sref="heatReport({fromDate : vm.fromDate, toDate: vm.toDate  })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.totalUnits | number :2}}</span> </a>
                     </td>
                     <td>
                         Target
@@ -123,7 +135,7 @@
                         Average Running Time
                     </th>
                     <td ng-class="{ 'bg bg-success' :vm.details.averageRunningTime <= 150  ,'bg bg-danger' : vm.details.averageRunningTime > 150}">
-                        <a ui-sref="heatReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.averageRunningTime | number :2}}</span> </a>
+                        <a ui-sref="heatReport({fromDate : vm.fromDate, toDate: vm.toDate  })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.averageRunningTime | number :2}}</span> </a>
                     </td>
                     <td>
                         Target
@@ -137,7 +149,7 @@
                         Average Tapping Time
                     </th>
                     <td ng-class="{ 'bg bg-success' :vm.details.averageTappingTime <= 10  ,'bg bg-danger' : vm.details.averageTappingTime > 10}">
-                        <a ui-sref="heatReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.averageTappingTime | number :2}}</span> </a>
+                        <a ui-sref="heatReport({fromDate : vm.fromDate, toDate: vm.toDate  })" ng-click="vm.collapseNavbar()"> <span>{{vm.details.averageTappingTime | number :2}}</span> </a>
                     </td>
                     <td>
                         Target
@@ -154,7 +166,7 @@
             <tr ng-repeat="(key, value) in vm.composition">
                 <th>{{key}}</th>
                 <td>
-                    <a ui-sref="ScrapIssuedReport({fromDate : vm.date, toDate: vm.date })" ng-click="vm.collapseNavbar()"> {{value * 100}} % </a>
+                    <a ui-sref="ScrapIssuedReport({fromDate : vm.fromDate, toDate: vm.toDate  })" ng-click="vm.collapseNavbar()"> {{value * 100 | number : 2}} % </a>
                 </td>
             </tr>
         </table>
@@ -168,4 +180,4 @@
         </table>
     </div>
 </div>
-{{vm.error}}    status : {{vm.status}}
+{{vm.error}} status : {{vm.status}}

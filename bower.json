@@ -26,12 +26,15 @@
     "ng-table": "1.0.0",
     "angular-sweetalert": "latest",
     "angular-fusioncharts": "latest",
-    "fusioncharts": "latest"
+    "fusioncharts": "^3.12.2"
   },
   "devDependencies": {
     "angular-mocks": "1.5.8"
   },
   "overrides": {
+    "fusioncharts": {
+      "main" : ["fusioncharts.js","fusioncharts.charts.js"]
+    },
     "angular": {
       "dependencies": {
         "jquery": "3.1.0"

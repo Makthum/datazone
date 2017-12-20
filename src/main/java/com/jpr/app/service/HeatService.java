@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -182,7 +183,7 @@ public class HeatService {
 		List<Map<Date, Double>> results = new ArrayList<>();
 		for (String field : fields) {
 			int fieldId = getField(field);
-			Map<Date, Double> temp = new HashMap<>();
+			Map<Date, Double> temp = new LinkedHashMap<>();
 			for (Object[] borderTypes : resultList) {
 				Date date = (Date) borderTypes[0];
 				temp.put(date, getFieldValue(field, borderTypes[fieldId]));
