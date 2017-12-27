@@ -17,7 +17,9 @@
             'angular-loading-bar',
             'ngTable',
             'oitozero.ngSweetAlert',
-            'ng-fusioncharts'
+            'ng-fusioncharts',
+            'xeditable',
+            'angularUtils.directives.dirPagination'
         ])
         .run(run);
 

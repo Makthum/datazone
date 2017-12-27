@@ -37,7 +37,7 @@
                 'fromDate': vm.fromDate,
                 'toDate': vm.toDate,
                 'page': 0,
-                'size': 1000
+                'size': 5000
             };
             $http({
                 method: 'POST',
@@ -62,8 +62,8 @@
             var dataset = {
                 'fromDate': vm.fromDate,
                 'toDate': vm.toDate,
-                'page': 1,
-                'size': 1000
+                'page': 0,
+                'size': 5000
             };
             $http({
                 method: 'POST',

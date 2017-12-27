@@ -108,13 +108,17 @@ public class HeatService {
 
 	public List<DimHeat> getRecentHeats() {
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, -3);
+		cal.add(Calendar.DATE, -7);
 		Date date = cal.getTime();
 		return dimHeatRepo.findByDimDateOnDateAfter(date);
 	}
 
 	public List<FactHeatDetails> getHeatDetails(Date fromDate, Date toDate, int page, int size) {
 		return factHeatDetailsRepo.findByDimHeatDimDateOnDateBetween(fromDate, toDate, new PageRequest(page, size));
+	}
+	
+	public List<DimHeat> getHeats(Date fromDate, Date toDate, int page, int size) {
+		return dimHeatRepo.findByDimDateOnDateBetween(fromDate, toDate, new PageRequest(page, size));
 	}
 
 	public HeatDetailsDTO getHeatDetails(Integer id) {

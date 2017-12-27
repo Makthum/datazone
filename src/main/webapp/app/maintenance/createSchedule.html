@@ -1,0 +1,191 @@
+<div class="row">
+    <div class="col-md-3">
+        <span class="text-center"><h3>New Schedule</h3></span>
+        <form ng-submit="vm.save()">
+            <table class="table table-condensed table-bordered table-striped">
+                <tbody>
+                    <tr>
+                        <th class="bg-primary">Start Date</th>
+                        <td>
+                            <input type="date" ng-model="vm.items.startDate" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">EndDate</th>
+                        <td>
+                            <input type="date" ng-model="vm.items.endDate" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Equipment</th>
+                        <td>
+                            <select ng-model="vm.items.equipmentId" ng-options="t.id as t.name for t in vm.equipments">
+                                <option value="">(blank)</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Frequency</th>
+                        <td>
+                            <input type="text" ng-model="vm.items.frequency" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Last Service</th>
+                        <td>
+                            <input type="text" ng-model="vm.items.lastService" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Next Service</th>
+                        <td>
+                            <input type="text" ng-model="vm.items.nextService" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">No of Service Person</th>
+                        <td>
+                            <input type="text" ng-model="vm.items.noOfPersonnel" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Spare Requied</th>
+                        <td>
+                            <input type="text" ng-model="vm.items.spareRequired" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Team</th>
+                        <td>
+                            <input type="text" ng-model="vm.items.team" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Tools Required</th>
+                        <td>
+                            <input type="text" ng-model="vm.items.toolsRequired" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Work Type</th>
+                        <td>
+                            <input type="text" ng-model="vm.items.workType" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success addnew " value="Save" />
+            </div>
+        </form>
+        <hr />
+    </div>
+    <div class="col-md-7">
+        <span class="text-center"><h3>Existing Schedule</h3></span>
+        <table class="table table-responsive table-bordered table-striped">
+            <tr ng-if="$index < 1" ng-repeat="item in vm.schedules">
+                <th>Id</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Equipment Id</th>
+                <th>Frequency</th>
+                <th>Last Service</th>
+                <th>Next Service</th>
+                <th>No Of Service Person</th>
+                <th>Spare Required</th>
+                <th>Tools Required</th>
+                <th>Task Created</th>
+                <th>Team</th>
+                <th>Work Type</th>
+                <th></th>
+            </tr>
+            <tr dir-paginate="equipment in vm.schedules |itemsPerPage: 5 track by $index">
+                <td>
+                    <!-- editable username (text with validation) -->
+                    <span editable-text="equipment.id" e-name="id" e-form="rowform">
+                        {{ equipment.id || 'empty' }}
+                    </span>
+                </td>
+                <td>
+                    <!-- editable status (select-local) -->
+                    <span editable-date="equipment.startDate" e-name="startDate" e-form="rowform">
+                    {{ equipment.startDate | date : 'dd/MM/yyyy HH:mm:ss': '+0530'}}
+                    </span>
+                </td>
+                <td>
+                    <span editable-date="equipment.endDate" e-name="endDate" e-form="rowform">
+                      {{ equipment.endDate | date : 'dd/MM/yyyy HH:mm:ss': '+0530' }}
+                    </span>
+                </td>
+                <td>
+                    <span editable-select="equipment.equipment.id" e-ng-options="t.id as t.name for t in vm.equipments" e-name="equipmentId" e-form="rowform">
+                      {{ equipment.equipment.id }}
+                    </span>
+                </td>
+                <td>
+                    <span editable-text="equipment.frequency" e-name="frequency" e-form="rowform">
+                      {{ equipment.frequency }}
+                    </span>
+                </td>
+                <td>
+                    <span editable-text="equipment.lastService" e-name="lastService" e-form="rowform">
+                      {{ equipment.lastService | date : 'dd/MM/yyyy HH:mm:ss': '+0530'}}
+                    </span>
+                </td>
+                 <td>
+                    <span editable-text="equipment.nextService" e-name="lastService" e-form="rowform">
+                      {{ equipment.nextService | date : 'dd/MM/yyyy HH:mm:ss': '+0530' }}
+                    </span>
+                </td>
+            
+                <td>
+                    <span editable-text="equipment.noOfPersonnel" e-name="noOfPersonnel" e-form="rowform">
+                      {{ equipment.noOfPersonnel}}
+                    </span>
+                </td>
+                <td>
+                    <span editable-text="equipment.spareRequired" e-name="spareRequired" e-form="rowform">
+                      {{ equipment.spareRequired}}
+                    </span>
+                </td>
+                 <td>
+                    <span editable-text="equipment.toolsRequired" e-name="toolsRequired" e-form="rowform">
+                      {{ equipment.toolsRequired}}
+                    </span>
+                </td>
+                <td>
+                    <span editable-text="equipment.taskCreated" e-name="taskCreated" e-form="rowform">
+                      {{ equipment.taskCreated}}
+                    </span>
+                </td>
+                <td>
+                    <span editable-text="equipment.team" e-name="team" e-form="rowform">
+                      {{ equipment.team}}
+                    </span>
+                </td>
+               
+                <td>
+                    <span editable-text="equipment.workType" e-name="workType" e-form="rowform">
+                      {{ equipment.workType}}
+                    </span>
+                </td>
+                <td style="white-space: nowrap">
+                    <!-- form -->
+                    <form editable-form name="rowform" onbeforesave="vm.update($data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == equipment">
+                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                            save
+                        </button>
+                        <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+                            cancel
+                        </button>
+                    </form>
+                    <div class="buttons" ng-show="!rowform.$visible">
+                        <button type="button" class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+                        <button type="button" class="btn btn-danger" ng-click="removeUser($index)">del</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <dir-pagination-controls class="panel-pagination"></dir-pagination-controls>
+    </div>
+</div>

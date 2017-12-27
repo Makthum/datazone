@@ -1,0 +1,97 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="zarroc (generated)" id="1514349725602-1">
+        <createTable tableName="equipment">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="equipmentPK"/>
+            </column>
+            <column name="date_commissioned" type="datetime"/>
+            <column name="department" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="type" type="VARCHAR(255)"/>
+            <column name="vendor_contact_no" type="VARCHAR(255)"/>
+            <column name="vendor_name" type="VARCHAR(255)"/>
+            <column name="parent_id" type="INT"/>
+        </createTable>
+        <addAutoIncrement columnDataType="int" columnName="id"
+			incrementBy="1" schemaName="jpr" startWith="100" tableName="equipment" />
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1514349725602-2">
+        <createTable tableName="maintschedule">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="maintschedulePK"/>
+            </column>
+            <column name="end_date" type="datetime"/>
+            <column name="frequency" type="INT"/>
+            <column name="last_service" type="datetime"/>
+            <column name="next_service" type="datetime"/>
+            <column name="no_of_personnel" type="INT"/>
+            <column name="spare_required" type="VARCHAR(255)"/>
+            <column name="start_date" type="datetime"/>
+            <column name="task_created" type="VARCHAR(255)"/>
+            <column name="team" type="VARCHAR(255)"/>
+            <column name="tools_required" type="VARCHAR(255)"/>
+            <column name="work_type" type="VARCHAR(255)"/>
+            <column name="equipment_id" type="INT"/>
+        </createTable>
+        <addAutoIncrement columnDataType="int" columnName="id"
+			incrementBy="1" schemaName="jpr" startWith="100" tableName="maintschedule" />
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1514349725602-3">
+        <createTable tableName="personnel">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="personnelPK"/>
+            </column>
+            <column name="contact_no" type="VARCHAR(255)"/>
+            <column name="department" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+        <addAutoIncrement columnDataType="int" columnName="id"
+			incrementBy="1" schemaName="jpr" startWith="100" tableName="personnel" />
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1514349725602-4">
+        <createTable tableName="task">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="taskPK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="end_date" type="datetime"/>
+            <column name="remarks" type="VARCHAR(255)"/>
+            <column name="spare_used" type="VARCHAR(255)"/>
+            <column name="start_date" type="datetime"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="task_type" type="VARCHAR(255)"/>
+            <column name="equipment_id" type="INT"/>
+        </createTable>
+        <addAutoIncrement columnDataType="int" columnName="id"
+			incrementBy="1" schemaName="jpr" startWith="100" tableName="task" />
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1514349725602-5">
+        <createTable tableName="task_personnel">
+            <column name="task_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="personnel_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1514349725602-6">
+        <addUniqueConstraint columnNames="personnel_id" constraintName="UK_gcbngxvx2468ma9nygdjpvq3b" tableName="task_personnel"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1514349725602-7">
+        <addForeignKeyConstraint baseColumnNames="task_id" baseTableName="task_personnel" constraintName="FK7qokbqumk55ppsj13jhllwv9x" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="task"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1514349725602-8">
+        <addForeignKeyConstraint baseColumnNames="personnel_id" baseTableName="task_personnel" constraintName="FKei5jf6ua8oetrwjku3a7s96m7" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="personnel"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1514349725602-9">
+        <addForeignKeyConstraint baseColumnNames="equipment_id" baseTableName="task" constraintName="FKgqdnpt2cd3ajsijri6lk7b8y8" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="equipment"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1514349725602-10">
+        <addForeignKeyConstraint baseColumnNames="parent_id" baseTableName="equipment" constraintName="FKi72cm86e7iu9rwmr2hha6npmh" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="equipment"/>
+    </changeSet>
+    <changeSet author="zarroc (generated)" id="1514349725602-11">
+        <addForeignKeyConstraint baseColumnNames="equipment_id" baseTableName="maintschedule" constraintName="FKlcsnlihw5hhuv33c19jihoid8" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="equipment"/>
+    </changeSet>
+</databaseChangeLog>

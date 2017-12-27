@@ -1,0 +1,95 @@
+<div class="col-md-12">
+    <table class="table table-responsive lead table-bordered table-striped" >
+        <tbody>
+            <tr>
+                <th class="bg-primary ">Description</th>
+                <td style="height:100px;">
+                    {{vm.task.description  }}
+                </td>
+
+                <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <th class="bg-primary ">Start Date</th>
+                <td style="height:100px;">
+                    {{vm.task.startDate | date : 'dd/MM/yyyy': '+0530' }}
+                </td>
+            </tr>
+            <tr>
+                <th class="bg-primary">End Date</th>
+                <td style="height:100px;">
+                    {{vm.task.endDate | date : 'dd/MM/yyyy' : '+0530'}}
+                </td>
+                <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <th class="bg-primary">Remarks</th>
+                <td style="height:100px;">
+                    {{vm.task.remarks}}
+                </td>
+            </tr>
+             
+            <tr>
+                <th class="bg-primary">Spare Used</th>
+                <td>
+                    {{vm.task.spareUsed}}
+                </td style="height:100px;">
+                <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <th class="bg-primary">Task Type</th>
+                <td style="height:100px;">
+                    {{vm.task.taskType}}
+                </td>
+            </tr>
+             <tr >
+                <th class="bg-primary">Equipment Name</th>
+                <td style="height:100px;">
+                    {{vm.task.equipment.name}}
+                </td>
+                <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <th class="bg-primary">Equipment DateCommissioned</th>
+                <td style="height:100px;">
+                    {{vm.task.equipment.dateCommissioned | date : 'dd/MM/yyyy' : '+0530' }}
+                </td>
+            </tr>
+            <tr >
+                <th class="bg-primary">Equipment Type</th>
+                <td style="height:100px;">
+                    {{vm.task.equipment.type}}
+                </td>
+                <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <th class="bg-primary">Department</th>
+                <td style="height:100px;">
+                    {{vm.task.equipment.department}}
+                </td>
+            </tr>
+            <tr >
+                <th class="bg-primary">Vendor Name</th>
+                <td style="height:100px;">
+                    {{vm.task.equipment.vendorName}}
+                </td>
+                <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <th class="bg-primary">Vendor Contact</th>
+                <td style="height:100px;">
+                    {{vm.task.equipment.vendorContactNo}}22
+                </td>
+            </tr>
+
+            <tr >
+                <th class="bg-primary">Last Service</th>
+                <td style="height:100px;">
+                    {{vm.task.scheulde.lastService}}
+                </td>
+                <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <th class="bg-primary">Next Service</th>
+                <td style="height:100px;">
+                    {{vm.task.scheulde.nextService}}22
+                </td>
+            </tr>
+            
+            <tr ng-repeat="(key, value) in vm.task.personnels">
+                <th class="bg-primary">Service Person</th>
+                <td style="height:100px;">
+                    {{value.name}}
+                </td>
+                <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+        </tbody>
+    </table>
+    
+</div>

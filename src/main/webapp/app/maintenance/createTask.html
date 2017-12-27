@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-md-3">
+        <span class="text-center"><h3>New Task</h3></span>
+        <form ng-submit="vm.save()">
+            <table class="table table-condensed table-bordered table-striped">
+                <tbody>
+                    <tr>
+                        <th class="bg-primary">Description</th>
+                        <td>
+                            <input type="text" ng-model="vm.items.description" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Equipment</th>
+                        <td>
+                            <select ng-model="vm.items.equipmentId" ng-options="t.id as t.name for t in vm.equipments">
+                                <option value="">(blank)</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Start Date</th>
+                        <td>
+                            <input type="date" ng-model="vm.items.startDate" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">End Date</th>
+                        <td>
+                            <input type="date" ng-model="vm.items.endDate" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Service Persons</th>
+                        <td>
+                            <select ng-model="vm.items.personnelIds" ng-options="t.id as t.name for t in vm.personnels" multiple="true">
+                                <option value="">(blank)</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Remarks</th>
+                        <td>
+                            <input type="text" ng-model="vm.items.remarks" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Schedule</th>
+                        <td>
+                            <select ng-model="vm.items.scheduleId" ng-options="t.id as t.id for t in vm.schedules">
+                                <option value="">(blank)</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Spare Used</th>
+                        <td>
+                            <input type="text" ng-model="vm.items.spareUsed" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Task Type</th>
+                        <td>
+                            <select ng-model="vm.items.taskType" ng-options="t.id as t.name for t in vm.taskTypes">
+                                <option value="">(blank)</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Status</th>
+                        <td>
+                            <select ng-model="vm.items.status" ng-options="t.name as t.name for t in vm.statuses">
+                                <option value="">(blank)</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success addnew " value="Save" />
+            </div>
+            <div class="form-group">
+                <input type="button" class="btn btn-success addnew " value="updateTasks" ng-click="vm.updateTasks()" />
+            </div>
+        </form>
+        <hr />
+    </div>
+</div>

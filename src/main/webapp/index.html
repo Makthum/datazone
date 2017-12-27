@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
     <link rel="stylesheet" href="bower_components/ng-table/dist/ng-table.css">
+    <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css">
     <!-- endinject -->
     <!-- endbuild -->
     <!-- build:css content/css/main.css -->
@@ -28,7 +29,7 @@
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <div ui-view="navbar" ng-cloak></div>
-    <jhi-alert></jhi-alert>
+    <div class="col-md-12"><jhi-alert></jhi-alert></div>
     <div class="container">
         <div ui-view="content">
             <!-- Angular views -->
@@ -77,6 +78,8 @@
     <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
     <script src="bower_components/ng-table/dist/ng-table.js"></script>
     <script src="bower_components/angular-fusioncharts/dist/angular-fusioncharts.min.js"></script>
+    <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+    <script src="bower_components/angularUtils-pagination/dirPagination.js"></script>
     <script src="bower_components/angular-sweetalert/SweetAlert.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
@@ -106,12 +109,19 @@
     <script src="app/scrap/ScrapIssuedController.js"></script>
     <script src="app/scrap/scrap.state.js"></script>
     <script src="app/scrap/createScrapController.js"></script>
+    <script src="app/report/taskReportController.js"></script>
     <script src="app/report/report.state.js"></script>
     <script src="app/report/monthlyScrapReceivedController.js"></script>
     <script src="app/report/monthlyScrapIssuedController.js"></script>
     <script src="app/report/issueReportController.js"></script>
     <script src="app/report/dailyReportController.js"></script>
     <script src="app/report/customReportController.js"></script>
+    <script src="app/maintenance/taskDetailController.js"></script>
+    <script src="app/maintenance/maintenance.state.js"></script>
+    <script src="app/maintenance/createTaskController.js"></script>
+    <script src="app/maintenance/createScheduleController.js"></script>
+    <script src="app/maintenance/createPersonnelController.js"></script>
+    <script src="app/maintenance/createEquipmentController.js"></script>
     <script src="app/layouts/navbar/navbar.controller.js"></script>
     <script src="app/layouts/error/error.state.js"></script>
     <script src="app/issue/issueController.js"></script>

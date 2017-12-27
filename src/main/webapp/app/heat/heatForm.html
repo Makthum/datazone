@@ -113,24 +113,58 @@
 <br>
 <br>
 <div class="row">
+    <div class="col-md-3 col-md-offset-2">
+        <p class="input-group">
+            <span class="input-group-addon">From Date</span>
+            <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.fromDate" is-open="vm.opened1" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                    ng-click="vm.open1()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+        </p>
+    </div>
+    <div class="col-md-3">
+        <p class="input-group">
+            <span class="input-group-addon">To Date</span>
+            <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.toDate" is-open="vm.opened2" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                    ng-click="vm.open2()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+        </p>
+    </div>
+    <div class="col-md-1">
+        <button type="button" class="btn btn-success" ng-click="vm.load()"> Load
+        </button>
+    </div>
     <span class="text-center"><h3>Heat List</h3></span>
     <div class="col-md-12">
-        <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped">
-            <tr ng-repeat="item in $data">
-                <td data-title="'dateOn'" header-class="'bg-primary'" sortable="'name'">
+        <table class="table table-condensed table-bordered table-striped">
+            <tr>
+            <th>Id</th>
+            <th>On Date</th>
+            <th>Off Date</th>
+            <th>heatId</th>
+            <th>furnaceId</th>
+            <th>Sintering Heat</th>
+            </tr>
+            <tr ng-repeat="item in vm.heats">
+                <td>
+                    <a ui-sref="heatDetails({heat: item})" ng-click="vm.collapseNavbar()"> {{item.id}}</a></td>
+                <td>
                     {{item.dimDateOn.date}}</td>
-                <td data-title="'dateOff'" header-class="'bg-primary'" sortable="'name'">
+                <td>
                     {{item.dimDateOff.date}}</td>
-                <td data-title="'Id'" header-class="'bg-primary'" sortable="'id'">
-                    {{item.id}}</td>
-                <td data-title="'heatId'" header-class="'bg-primary'" sortable="'name'">
+                <td>
                     {{item.heatId}}</td>
-                <td data-title="'FurnaceId'" header-class="'bg-primary'" sortable="'name'">
+                <td>
                     {{item.furnaceId}}</td>
-                <td data-title="'Sintering Heat Id'" header-class="'bg-primary'" sortable="'name'">
+                <td>
                     {{item.sinteringHeatId}}</td>
             </tr>
         </table>
     </div>
 </div>
-{{vm.error}} status : {{vm.status}}
+

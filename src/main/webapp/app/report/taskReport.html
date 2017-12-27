@@ -1,0 +1,130 @@
+<div class="row">
+    <hr>
+    <span class="text-center"><h3>Task Report </h3></span>
+    <br>
+    <div class="col-md-offset-2 col-md-3">
+        <p class="input-group">
+            <span class="input-group-addon">From Date</span>
+            <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.fromDate" is-open="vm.opened1" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                    ng-click="vm.open1()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+        </p>
+    </div>
+    <div class="col-md-3">
+        <p class="input-group">
+            <span class="input-group-addon">From Date</span>
+            <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.toDate" is-open="vm.opened2" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="vm.altInputFormats" /> <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                    ng-click="vm.open2()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+        </p>
+    </div>
+    <div class="col-md-3">
+        <button type="button" class="btn btn-success" ng-click="vm.load()"> Load
+        </button>
+    </div>
+</div>
+<div class="col-md-7">
+    <table class="table table-responsive table-bordered table-striped">
+        <tr ng-if="$index < 1" ng-repeat="item in vm.tasks">
+            <th>Id</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Equipment Id</th>
+            <th>Service Persons</th>
+            <th>Remarks</th>
+            <th>Schedule</th>
+            <th>Spare used</th>
+            <th>Task Type</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        <tr dir-paginate="equipment in vm.tasks |itemsPerPage: 5 track by $index">
+            <td>
+                <a ui-sref="taskDetail({taskId: equipment.id })" ng-click="vm.collapseNavbar()">
+                    <!-- editable username (text with validation) -->
+                    <span editable-text="equipment.id" e-name="id" e-form="rowform">
+                        {{ equipment.id || 'empty' }}
+                    </span>
+                </a>
+            </td>
+            <td>
+                <!-- editable status (select-local) -->
+                <span editable-text="equipment.description" e-name="description" e-form="rowform">
+                    {{ equipment.description }}
+                    </span>
+            </td>
+            <td>
+                <span editable-datetime-local="equipment.startDate" e-name="startDate" e-form="rowform">
+                      {{ equipment.startDate | date : 'dd/MM/yyyy HH:mm:ss': '+0530' }}
+                    </span>
+            </td>
+            <td>
+                <span editable-datetime-local="equipment.endDate" e-name="endDate" e-form="rowform">
+                      {{ equipment.endDate | date : 'dd/MM/yyyy HH:mm:ss': '+0530' }}
+                    </span>
+            </td>
+            <td>
+                <span editable-select="equipment.equipment.id" e-ng-options="t.id as t.name for t in vm.equipments" e-name="equipmentId" e-form="rowform">
+                      {{ equipment.equipment.id }}
+                    </span>
+            </td>
+            <td>
+                <span editable-select="equipment.personnels" e-ng-options="t.id as t.name for t in vm.personnels" e-name="personnelIds" e-form="rowform" e-multiple="true">
+                      {{ vm.showStatus(equipment) }}
+                    </span>
+            </td>
+            <td>
+                <span editable-text="equipment.remarks" e-name="remarks" e-form="rowform">
+                      {{ equipment.remarks }}
+                    </span>
+            </td>
+            <td>
+                <span editable-select="equipment.scheulde.id" e-ng-options="t.id as t.id for t in vm.schedules" e-name="scheduleId" e-form="rowform">
+                      {{ equipment.scheulde.id}}
+                    </span>
+            </td>
+            <td>
+                <span editable-text="equipment.spareUsed" e-name="spareUsed" e-form="rowform">
+                      {{ equipment.spareUsed}}
+                    </span>
+            </td>
+            <td>
+                <span editable-select="equipment.taskType" e-ng-options="t.id as t.name for t in vm.taskTypes" e-name="taskType" e-form="rowform">
+                      {{ equipment.taskType}}
+                    </span>
+            </td>
+            <td>
+                <span editable-select="equipment.status" e-name="status" e-ng-options="t.name as t.name for t in vm.statuses" e-form="rowform">
+                      {{ equipment.status}}
+                    </span>
+            </td>
+            <td>
+            <button type="button" class="btn btn-success" ng-click="vm.print(equipment.id)">print
+            </td>
+            <td style="white-space: nowrap">
+                <!-- form -->
+                <form editable-form name="rowform" onbeforesave="vm.update($data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == equipment" onShow="vm.show(rowform)">
+                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                        save
+                    </button>
+                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+                        cancel
+                    </button>
+                </form>
+                <div class="buttons" ng-show="!rowform.$visible">
+                    <button type="button" class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+                    <button type="button" class="btn btn-danger" ng-click="removeUser($index)">del</button>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <dir-pagination-controls class="panel-pagination"></dir-pagination-controls>
+</div>

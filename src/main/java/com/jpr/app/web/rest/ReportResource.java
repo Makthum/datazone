@@ -10,6 +10,7 @@ import javax.management.RuntimeErrorException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -126,7 +127,7 @@ public class ReportResource {
 	@PostMapping("/reports/sql")
 	@Timed
 	@Secured(AuthoritiesConstants.USER)
-	public ResponseEntity<String> customReport(@RequestBody String dto) {
+	public ResponseEntity<String> customReport(@RequestBody String dto) throws JSONException {
 		JSONArray result = reportService.customReport(dto);
 		return new ResponseEntity<>(result.toString(), HttpStatus.OK);
 	}

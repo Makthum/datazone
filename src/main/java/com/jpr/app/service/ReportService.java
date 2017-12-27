@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,6 @@ import com.jpr.app.repository.RawMaterialCostRepository;
 import com.jpr.app.service.dto.CompositionCost;
 import com.jpr.app.service.dto.DailyReportDTO;
 import com.jpr.app.service.dto.MonthlyScrapReportDTO;
-
-import net.minidev.json.JSONObject;
 
 @Service
 public class ReportService {
@@ -129,7 +128,7 @@ public class ReportService {
 		return result;
 	}
 
-	public JSONArray customReport(String query) {
+	public JSONArray customReport(String query) throws JSONException {
 		List<Map<String, Object>> set = template.queryForList(query);
 		JSONArray array = new JSONArray();
 		for (Map<String, Object> entry : set) {
@@ -143,7 +142,7 @@ public class ReportService {
 		return set;
 	}
 
-	private JSONObject toJson(Map<String, Object> map) {
+	private JSONObject toJson(Map<String, Object> map) throws JSONException {
 		JSONObject jsonObject = new JSONObject();
 
 		for (String key : map.keySet()) {
@@ -161,7 +160,7 @@ public class ReportService {
 		return jsonObject;
 	}
 
-	private JSONArray toJson(List<Object> list) {
+	private JSONArray toJson(List<Object> list) throws JSONException {
 		JSONArray jsonArray = new JSONArray();
 
 		for (Object obj : list) {

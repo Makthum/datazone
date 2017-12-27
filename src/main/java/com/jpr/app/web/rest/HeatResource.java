@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,7 +49,7 @@ public class HeatResource {
 
 	@Autowired
 	ComponentService compoService;
-	
+
 	@Autowired
 	CSVService csvService;
 
@@ -67,13 +68,13 @@ public class HeatResource {
 		DimHeat result = heatService.createDimHeat(temp);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
-	
+
 	@PutMapping("/heats")
 	@Timed
 	@Secured(AuthoritiesConstants.USER)
 	public ResponseEntity<DimHeat> updateHeat(@RequestBody DimHeatDTO details) {
 		DimHeat temp = heatService.getHeat(details.getId());
-		if(temp==null)
+		if (temp == null)
 			return null;
 		DimDate dateOn = dimDateRepo.findByDate(details.getDateOn());
 		DimDate dateOff = dimDateRepo.findByDate(details.getDateOff());
@@ -91,6 +92,14 @@ public class HeatResource {
 	@Secured(AuthoritiesConstants.USER)
 	public ResponseEntity<List<DimHeat>> getHeat() {
 		List<DimHeat> result = heatService.getHeats();
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+
+	@GetMapping("/heats/{id}")
+	@Timed
+	@Secured(AuthoritiesConstants.USER)
+	public ResponseEntity<DimHeat> getHeat(@PathVariable("id") Integer id) {
+		DimHeat result = heatService.getHeat(id);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
@@ -135,10 +144,21 @@ public class HeatResource {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
+	
+	@PostMapping("/heats/report")
+	@Timed
+	@Secured(AuthoritiesConstants.USER)
+	public ResponseEntity<List<DimHeat>> getHeatss(@RequestBody RcLogDTO details) {
+		List<DimHeat> result = heatService.getHeats(details.getFromDate(), details.getToDate(),
+				details.getPage(), details.getSize());
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+		
+
 	@PostMapping("/heatdetails/reportdownload")
 	@Timed
 	@Secured(AuthoritiesConstants.USER)
-	public void downloadHeatDetails(@RequestBody RcLogDTO details,HttpServletResponse response) throws IOException {
+	public void downloadHeatDetails(@RequestBody RcLogDTO details, HttpServletResponse response) throws IOException {
 		List<FactHeatDetails> result = heatService.getHeatDetails(details.getFromDate(), details.getToDate(),
 				details.getPage(), details.getSize());
 		csvService.writeAll(response.getWriter(), result, FactHeatDetails.class);

@@ -5,17 +5,21 @@
         .module('jprApp')
         .controller('heatDetailsController', heatDetailsController);
 
-    heatDetailsController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', "NgTableParams", "$filter", 'AlertService'];
+    heatDetailsController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http', "NgTableParams", "$filter", 'AlertService','$stateParams'];
 
-    function heatDetailsController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter, AlertService) {
+    function heatDetailsController($scope, Principal, LoginService, $state, $http, NgTableParams, $filter, AlertService,$stateParams) {
         var vm = this;
-
+        vm.heat = $stateParams.heat;
         vm.account = null;
         vm.isAuthenticated = null;
         vm.login = LoginService.open;
         $scope.$on('authenticationSuccess', function() {
             getAccount();
         });
+
+        if(vm.heat){
+            loadHeatDetails(vm.heat);
+        }
 
         getAccount();
         getHeats();
@@ -286,7 +290,7 @@
                 },
                 function myError(response) {
                     AlertService.error(response.data.detail);
-                AlertService.error(response.statusText);
+                    AlertService.error(response.statusText);
                 });
 
             $http({
@@ -317,6 +321,24 @@
                 vm.heat.furnaceOff = new Date(item.dimDateOff.date);
             }
             vm.heatName = item.heatId + "-" + item.sinteringHeatId;
+        }
+
+        vm.searchHeat = function(id) {
+            $http({
+                method: 'GET',
+                url: '/api/heats/'+id,
+            }).then(function mySuccess(response) {
+                    if (response.data) {
+                        loadHeatDetails(response.data)
+                    } else {
+                        vm.heat = {};
+                    }
+                    vm.status = response.statusText;
+                },
+                function myError(response) {
+                    AlertService.error(response.data.detail);
+                    AlertService.error(response.statusText);
+                });
         }
 
 

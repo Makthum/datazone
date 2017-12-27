@@ -36,7 +36,7 @@
                         </td>
                         <th class="bg-success">Tapping Temperature</th>
                         <td>
-                            <input name="ttemp" type="number" step="any" ng-model="vm.heat.tappingTemp" step="any" min=1200 max=2000 class="form-control" ng-required="true">
+                            <input name="ttemp" type="number" step="any" ng-model="vm.heat.tappingTemp" step="any" min=0 max=2000 class="form-control" ng-required="true">
                             <span class="text-danger" ng-show="heatdf.ttemp.$invalid">Invalid Value</span>
                         </td>
                         <th class="bg-success">Manganese</th>
@@ -98,7 +98,7 @@
                         </td>
                         <th class="bg-success">Unit Per Ton</th>
                         <td>
-                            <input type="number" name="upt" step="any" ng-model="vm.heat.unitPerTon" step="any" min=400 max=2000 class="form-control" ng-required="true">
+                            <input type="number" name="upt" step="any" ng-model="vm.heat.unitPerTon" step="any" min=0 max=2000 class="form-control" ng-required="true">
                             <span class="text-danger" ng-show="heatdf.upt.$invalid">Invalid Value</span>
                         </td>
                         <th class="bg-success">Phosphorus</th>
@@ -161,7 +161,7 @@
                             </td>
                         <th class="bg-success">Silico Manganese Utilization </th>
                             <td>
-                                <input name="siMnUtilization" type="number" step="any" min=0 max=400 ng-model="vm.heat.siMnUtilization" class="form-control" />
+                                <input name="siMnUtilization" type="number" step="any" min=0 max=1000 ng-model="vm.heat.siMnUtilization" class="form-control" />
                                 <span class="text-danger" ng-show="heatdf.siMnUtilization.$invalid">Invalid Value</span>
                             </td>
                     </tr>

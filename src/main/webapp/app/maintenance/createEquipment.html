@@ -1,0 +1,136 @@
+<div class="row">
+    <div class="col-md-3">
+        <span class="text-center"><h3>New Equipment</h3></span>
+        <form ng-submit="vm.save()">
+            <table class="table table-condensed table-bordered table-striped">
+                <tbody>
+                    <tr>
+                        <th class="bg-primary">Name</th>
+                        <td>
+                            <input type="text" ng-model="vm.items.name" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Department</th>
+                        <td>
+                            <input type="text" ng-model="vm.items.department" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">type</th>
+                        <td>
+                            <input type="text" ng-model="vm.items.type" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Vendor Name</th>
+                        <td>
+                            <input type="text" ng-model="vm.items.vendorName" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Vendor Contact No</th>
+                        <td>
+                            <input type="text" ng-model="vm.items.vendorContactNo" />
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="bg-primary">Parent Equipment</th>
+                        <td>
+                            <select ng-model="vm.items.parentId" ng-options="t.id as t.name for t in vm.equipments">
+                                <option value="">(blank)</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-primary">Date Commissioned</th>
+                        <td>
+                            <input type="date" ng-model="vm.items.dateCommissioned" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success addnew " value="Save" />
+            </div>
+        </form>
+        <hr />
+    </div>
+    <div class="col-md-7">
+        <span class="text-center"><h3>Existing Equipment</h3></span>
+        <table class="table table-responsive table-bordered table-striped">
+            <tr ng-if="$index < 1" ng-repeat="item in vm.equipments">
+                <th>Id</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Type</th>
+                <th>Date Commissioned</th>
+                <th>VendorName</th>
+                <th>VendorContactNo</th>
+                <th>Linked Equipment</th>
+                <th></th>
+            </tr>
+            <tr dir-paginate="equipment in vm.equipments |itemsPerPage: 5 track by $index">
+                <td>
+                    <!-- editable username (text with validation) -->
+                    <span editable-text="equipment.id" e-name="id" e-form="rowform">
+                        {{ equipment.id || 'empty' }}
+                    </span>
+                </td>
+                <td>
+                    <!-- editable status (select-local) -->
+                    <span editable-text="equipment.name" e-name="name" e-form="rowform">
+                    {{ equipment.name }}
+                    </span>
+                </td>
+                <td>
+                    <span editable-text="equipment.department" e-name="department" e-form="rowform">
+                      {{ equipment.department }}
+                    </span>
+                </td>
+                <td>
+                    <span editable-text="equipment.type" e-name="contactNo" e-form="rowform">
+                      {{ equipment.type }}
+                    </span>
+                </td>
+                <td>
+                    <span editable-date="equipment.dateCommissioned" e-name="contactNo" e-form="rowform">
+                      {{ equipment.dateCommissioned | date : ' dd/MM/yyyy HH:mm:ss': '+0530' }}
+                    </span>
+                </td>
+                <td>
+                    <span editable-text="equipment.vendorName" e-name="contactNo" e-form="rowform">
+                      {{ equipment.vendorName }}
+                    </span>
+                </td>
+                <td>
+                    <span editable-text="equipment.vendorContactNo" e-name="contactNo" e-form="rowform">
+                      {{ equipment.vendorContactNo }}
+                    </span>
+                </td>
+                <td>
+                    <span editable-text="equipment.vendorContactNo" e-name="contactNo" e-form="rowform">
+                      {{ equipment.parent.id }}
+                    </span>
+                </td>
+                <td style="white-space: nowrap">
+                    <!-- form -->
+                    <form editable-form name="rowform" onbeforesave="vm.update($data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == equipment">
+                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                            save
+                        </button>
+                        <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+                            cancel
+                        </button>
+                    </form>
+                    <div class="buttons" ng-show="!rowform.$visible">
+                        <button type="button" class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+                        <button type="button" class="btn btn-danger" ng-click="removeUser($index)">del</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <dir-pagination-controls class="panel-pagination"></dir-pagination-controls>
+    </div>
+</div>

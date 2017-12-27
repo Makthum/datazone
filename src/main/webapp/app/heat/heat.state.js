@@ -40,6 +40,9 @@
             data: {
                 authorities: []
             },
+            params : {
+                heat : null
+            },
             views: {
                 'content@': {
                     templateUrl: 'app/heat/heatDetails.html',

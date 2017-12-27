@@ -138,6 +138,43 @@
                         </li>
                     </ul>
                 </li>
+                <li ng-class="{active: vm.$state.includes('Maintenance')}" uib-dropdown class="dropdown pointer" has-authority="ROLE_SCRAP_USER">
+                    <a class="dropdown-toggle" uib-dropdown-toggle href="" id="heat-menu">
+                        <span>
+                            <span class="glyphicon glyphicon-user"></span>
+                            <span class="hidden-sm">
+                                Maintenance 
+                            </span>
+                            <b class="caret"></b>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu" uib-dropdown-menu>
+                        <li ui-sref-active="active" ng-switch-when="true">
+                            <a ui-sref="createPersonnel" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-cloud"></span>&nbsp;
+                                <span>Create Personnel</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" ng-switch-when="true">
+                            <a ui-sref="createEquipment" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-lock"></span>&nbsp;
+                                <span>Create Equipment</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" ng-switch-when="true">
+                            <a ui-sref="createSchedule" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-lock"></span>&nbsp;
+                                <span>Create Schedule</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" ng-switch-when="true">
+                            <a ui-sref="createTask" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-lock"></span>&nbsp;
+                                <span>Create Task</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li ng-class="{active: vm.$state.includes('Reports')}" uib-dropdown class="dropdown pointer" has-authority="ROLE_SCRAP_USER">
                     <a class="dropdown-toggle" uib-dropdown-toggle href="" id="reports-menu">
                         <span>
@@ -207,6 +244,12 @@
                             <a ui-sref="customReport" ng-click="vm.collapseNavbar()">
                                 <span class="glyphicon glyphicon-wrench"></span>&nbsp;
                                 <span>Custom Report</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" ng-switch-when="true">
+                            <a ui-sref="taskReport" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-wrench"></span>&nbsp;
+                                <span>Task Report</span>
                             </a>
                         </li>
                     </ul>

@@ -26,14 +26,20 @@
     "ng-table": "1.0.0",
     "angular-sweetalert": "latest",
     "angular-fusioncharts": "latest",
-    "fusioncharts": "^3.12.2"
+    "fusioncharts": "^3.12.2",
+    "angular-xeditable": "^0.8.1",
+    "angularUtils-pagination": "angular-utils-pagination#^0.11.1"
   },
   "devDependencies": {
-    "angular-mocks": "1.5.8"
+    "angular-mocks": "1.5.8",
+    "angular-xeditable": "^0.8.1"
   },
   "overrides": {
     "fusioncharts": {
-      "main" : ["fusioncharts.js","fusioncharts.charts.js"]
+      "main": [
+        "fusioncharts.js",
+        "fusioncharts.charts.js"
+      ]
     },
     "angular": {
       "dependencies": {

@@ -89,6 +89,23 @@
                     controllerAs: 'vm'
                 }
             }
+        }).state('taskReport', {
+            parent: 'app',
+            url: '/taskReport',
+            params : {
+                fromDate: null,
+                toDate: null
+            },
+            data: {
+                authorities: []
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/report/taskReport.html',
+                    controller: 'taskReportController',
+                    controllerAs: 'vm'
+                }
+            }
         });
     }
 })();

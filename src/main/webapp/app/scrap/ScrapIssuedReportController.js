@@ -116,7 +116,7 @@
                 'fromDate': vm.fromDate,
                 'toDate': vm.toDate,
                 'page': page - 1,
-                'size': 1000
+                'size': 5000
             }
             return $http({
                 method: 'POST',
@@ -139,7 +139,7 @@
                 'fromDate': vm.fromDate,
                 'toDate': vm.toDate,
                 'page': 1,
-                'size': 1000
+                'size': 5000
             };
             $http({
                 method: 'POST',

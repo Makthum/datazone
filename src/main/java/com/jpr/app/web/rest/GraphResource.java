@@ -45,7 +45,7 @@ public class GraphResource {
 	@Secured(AuthoritiesConstants.USER)
 	public ResponseEntity<String> getHeat(@RequestParam(value="fields") List<String> myParam) throws ParseException, JSONException {
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, -7);
+		cal.add(Calendar.DATE, -30);
 		Date fromDate = cal.getTime();
 		List<Map<Date, Double> >result = heatService.getProduction(fromDate, new Date(),myParam.toArray(new String[myParam.size()]));
 		JSONObject object = heatService.getGraphData(result, myParam.toArray(new String[myParam.size()]));
